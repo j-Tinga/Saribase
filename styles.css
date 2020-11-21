@@ -1,0 +1,4 @@
+body {background-color: #98c2dc;}
+		.jumbotron {width: 85%; margin: auto; margin-top: 30px; background-color: #cfecfe; border-radius: 25px;}
+		h6{color: red;}
+		table, th, td { border: 1px solid black;text-align: center;}

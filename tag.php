@@ -8,21 +8,70 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<form action='' method='POST'>
+        <input type='submit' name='back' class='btn btn-success' value='Back to Item Table'> 
+</form>
 <?php
     session_start();
     $conn = new mysqli('localhost', 'root', '', '');
     $select = $conn->select_db('saribase');
     $itemID=$_SESSION['itemID'];
+    $page = $_SERVER['PHP_SELF'];
 
     $result = $conn->query("SELECT itemName FROM item WHERE itemID = '$itemID'");
-    $tagResult = $conn->query("SELECT tagName FROM tag_list INNER JOIN tag ON tag.tagID = tag_list.tagID WHERE tag_list.itemID = '$itemID'");
+    $tagResult = $conn->query("SELECT tagName, tag.tagID, tagListID FROM tag_list INNER JOIN tag ON tag.tagID = tag_list.tagID WHERE tag_list.itemID = '$itemID'");
+
+    if(isset($_POST['back'])){
+        header('Location: item.php');
+    }
+
+    if(isset($_POST['updateTag'])){
+        $sql = "UPDATE tag SET tagName='".$_POST['newName']."' WHERE tagID=".$_POST['id']."";
+        $conn->query($sql);
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['deleteTag'])){
+        $sql = "DELETE FROM tag WHERE tagID=".$_POST['id']."";
+        $conn->query($sql);
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['removeTag'])){
+        $sql = "DELETE FROM tag_List WHERE tagListID=".$_POST['tagListid']."";
+        $conn->query($sql);
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['createTag'])){
+        $createQuery = "INSERT INTO tag (tagName, tagType) VALUES ('$_POST[tagName]','$_POST[type]')";
+        $conn->query($createQuery); 
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['addTag'])){
+        $addQuery = "INSERT INTO tag_List (itemID, tagID) VALUES ('$itemID','$_POST[id]')";
+        $conn->query($addQuery);
+        header("Refresh:0");
+    }
     
     echo "<div class='jumbotron d-flex justify-content-center'>
-    <h5>Tags for: {$result->fetch_assoc()['itemName']}</h5>";
+    <table><thead>
+        <tr><th colspan='2'>Active Tags</th></tr>
+        <tr>
+            <th>Tag Name</th>
+            <th>Actions</th>
+        </tr></thead>";
     while ($tag = $tagResult->fetch_assoc()){
-        echo"<span class='badge badge-secondary'>{$tag['tagName']}   </span>";
+        echo"<tr><td>{$tag['tagName']}</td>
+        <td><form action='' method='POST'>
+        <input type='hidden' name='id' value='$tag[tagID]'> 
+        <input type='hidden' name='tagListid' value='$tag[tagListID]'> 
+        <input type='submit' name='removeTag' class='btn btn-danger' value='Remove'>
+        <input type='submit' name='edit' class='btn btn-warning' value='Edit'>
+        </form></td></tr>";
     }
-    echo"</div>";
+    echo"</table></div>";
 
     $materialTags = $conn->query("SELECT tagName, tagID FROM tag WHERE tagType = 'Material' AND tagID NOT IN(SELECT tagID FROM tag_List WHERE itemID = '$itemID')");
     $toolTags= $conn->query("SELECT tagName, tagID FROM tag WHERE tagType = 'Tool' AND tagID NOT IN(SELECT tagID FROM tag_List WHERE itemID = '$itemID')");
@@ -41,7 +90,7 @@
 
     while ($tag = $materialTags->fetch_assoc()){
         echo"<tr><td>{$tag['tagName']}</td>
-        <td><form action='$_SERVER[PHP_SELF]' method='POST'>
+        <td><form action='' method='POST'>
         <input type='hidden' name='id' value='$tag[tagID]'> 
         <input type='submit' name='addTag' class='btn btn-success' value='Add'>
         <input type='submit' name='edit' class='btn btn-warning' value='Edit'>
@@ -60,7 +109,7 @@
         <td><form action='' method='POST'>
         <input type='hidden' name='id' value='$tag[tagID]'> 
         <input type='submit' name='addTag' class='btn btn-success' value='Add'>
-        <input type='submit' name='Edit' class='btn btn-warning' value='Edit'>
+        <input type='submit' name='edit' class='btn btn-warning' value='Edit'>
         </form></td></tr>";
     }
     echo "</table>";
@@ -100,19 +149,6 @@
         </form> </div>";
     }
 
-    if(isset($_POST['createTag'])){
-        $createQuery = "INSERT INTO tag (tagName, tagType) VALUES ('$_POST[tagName]','$_POST[type]')";
-        $conn->query($createQuery); 
-        header('Refresh: 0');
-    }
-
-    if(isset($_POST['addTag'])){
-        echo $_POST['id'];
-        $addQuery = "INSERT INTO tag_List (itemID, tagID) VALUES ('$itemID','$_POST[id]')";
-        $conn->query($addQuery);
-        header('Refresh: 0');
-    }
-
     if(isset($_POST['edit'])){
         $updateQuery = $conn->query("SELECT * FROM tag WHERE tagID= '$_POST[id]'");
         $updateResult = $updateQuery->fetch_assoc();
@@ -121,13 +157,8 @@
         <input type='hidden' name='id' value='$_POST[id]'>
         <input type='text' name='newName' class='form-control' placeholder='New tag name' value = '$updateResult[tagName]'> <br>
         <input type='submit' name='updateTag' class='btn btn-success' value='Update Tag'>
+        <input type='submit' name='deleteTag' class='btn btn-danger' value='Delete Tag'>
         </form> </div>";
-    }
-
-    if(isset($_POST['updateTag'])){
-        $sql = "UPDATE tag SET tagName='".$_POST['newName']."' WHERE tagID=".$_POST['id']."";
-        $conn->query($sql);
-        header('Refresh: 0');
     }
 ?>
     

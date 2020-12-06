@@ -9,11 +9,11 @@
 </head>
 <body>
     <div class='jumbotron d-flex justify-content-center'>
-    <form action='' method='POST'>
-        <input type='submit' name='addItem' class='btn btn-success' value='Add Item'>
-        <input type='submit' name='addBrand' class='btn btn-success' value='Add Brand'> 
-        <input type='submit' name='addSupplier' class='btn btn-success' value='Add Supplier'> 
-    </form>
+        <form action='' method='POST'>
+            <input type='submit' name='addItem' class='btn btn-success' value='Add Item'>
+            <input type='submit' name='addBrand' class='btn btn-success' value='Add Brand'> 
+            <input type='submit' name='viewBranches' class='btn btn-primary' value='View Branches'>
+        </form>
     </div>
 
     <?php
@@ -21,15 +21,17 @@
     $conn = new mysqli('localhost', 'root', '', '');
 	$select = $conn->select_db('saribase');
 
-    echo "<div class='jumbotron d-flex justify-content-center'><table><thead><tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Selling Price</th>
-            <th>Supplier</th>
-            <th>Unit Count</th>
-            <th>Tags</th>
-            <th>Last Updated</th>
-            <th>Actions</th>
+    echo "<div class='jumbotron d-flex justify-content-center'><table><thead>
+            <tr><th colspan='8'>Item Table</th></tr>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Selling Price</th>
+                <th>Supplier</th>
+                <th>Unit Count</th>
+                <th>Tags</th>
+                <th>Last Updated</th>
+                <th>Actions</th>
             </tr>
             </thead>";
 
@@ -38,25 +40,26 @@
         $supplierResult = $conn->query("SELECT supplierName FROM supplier WHERE supplierID = '$row[supplierID]'");
         $tagResult = $conn->query("SELECT tagName FROM tag_list INNER JOIN tag ON tag.tagID = tag_list.tagID WHERE tag_list.itemID = '$row[itemID]'");
         echo"
-        <tr><td>{$row['itemName']}</td>
-        <td>{$row['price']}</td>
-        <td>{$row['sellingPrice']}</td>
-        <td>{$supplierResult->fetch_assoc()['supplierName']}</td>
-        <td>{$row['unitCount']}</td>
-        <td>
+        <tr>
+            <td>{$row['itemName']}</td>
+            <td>{$row['price']}</td>
+            <td>{$row['sellingPrice']}</td>
+            <td>{$supplierResult->fetch_assoc()['supplierName']}</td>
+            <td>{$row['unitCount']}</td>
+            <td>
         ";
-        
         while ($tag = $tagResult->fetch_assoc()){
             echo" <span class='badge badge-secondary'>{$tag['tagName']} </span>";
         }
         echo"
-        </td>
-        <td>{$row['dateAdded']}</td>
-        <td><form action='$_SERVER[PHP_SELF]' method='POST'>
-            <input type='hidden' name='id' value='$row[itemID]'> 
-            <input type='submit' name='edit' class='btn btn-success' value='Edit'>
-            <input type='submit' name='delete' class='btn btn-danger' value='Delete'>
-        </form></td></tr>
+            </td>
+            <td>{$row['dateAdded']}</td>
+            <td><form action='$_SERVER[PHP_SELF]' method='POST'>
+                <input type='hidden' name='id' value='$row[itemID]'> 
+                <input type='submit' name='edit' class='btn btn-success' value='Edit'>
+                <input type='submit' name='delete' class='btn btn-danger' value='Delete'>
+            </form></td>
+        </tr>
         ";
     }
     echo "</table></div>";
@@ -65,37 +68,37 @@
         $itemID = $_POST['id'];
         $updateQuery = $conn->query("SELECT * FROM item WHERE itemID= '$itemID'");
         $updateResult = $updateQuery->fetch_assoc();
-        $updateSupplier = $conn->query("SELECT supplierName FROM supplier");
-        $updateBrand = $conn->query("SELECT brandName FROM brand");
+        $updateSupplier = $conn->query("SELECT supplierID, supplierName FROM supplier");
+        $updateBrand = $conn->query("SELECT brandID, brandName FROM brand");
         $_SESSION['itemID'] = $itemID;
 
         echo '<div class="jumbotron d-flex justify-content-center">
         <form action="" method="POST">
-        <h1> Edit Product: '.$updateResult["itemName"].'</h1>
-        <label for="inputName">Item Name:</label>
-        <input type="text" name="name" id="inputName" class="form-control" value="'.$updateResult["itemName"].'"}>
+            <h1> Edit Product: '.$updateResult["itemName"].'</h1>
+            <label for="inputName">Item Name:</label>
+            <input type="text" name="name" id="inputName" class="form-control" value="'.$updateResult["itemName"].'"}>
 
-        <label for="price">Price:</label>
-        <input type="text" name="price" id="price" class="form-control" value="'.$updateResult["price"].'">
+            <label for="price">Price:</label>
+            <input type="text" name="price" id="price" class="form-control" value="'.$updateResult["price"].'">
 
-        <label for="selpric">Selling Price:</label>
-        <input type="text" name="sellPrice" id="selpric" class="form-control" value="'.$updateResult["sellingPrice"].'">
+            <label for="selpric">Selling Price:</label>
+            <input type="text" name="sellPrice" id="selpric" class="form-control" value="'.$updateResult["sellingPrice"].'">
 
-        <label for="unitCount">Unit Count:</label>
-        <input type="text" name="unitCount" id="unitCount" class="form-control" value="'.$updateResult["unitCount"].'">
+            <label for="unitCount">Unit Count:</label>
+            <input type="text" name="unitCount" id="unitCount" class="form-control" value="'.$updateResult["unitCount"].'">
 
-        <label for="Brands">Brand:</label>
-        <select id="Brands" name="itemBrand" class="form-control">';
+            <label for="Brands">Brand:</label>
+            <select id="Brands" name="itemBrand" class="form-control">';
 
         while ($brand = $updateBrand->fetch_assoc()){
-            echo "<option value='$brand[brandID]'>$brand[brandName]</option>";
+            echo "<option value='$brand[brandID]'>$brand[brandName] </option>";
         }
         echo '</select>
         <label for="suppliers">Supplier:</label>
         <select id="suppliers" name="itemSupplier" class="form-control">';
 
         while ($supplier = $updateSupplier->fetch_assoc()){
-            echo "<option value='$supplier[supplierID]'>$supplier[supplierName]</option>";
+            echo "<option value='$supplier[supplierID]'>$supplier[supplierName] </option>";
         }
         echo '</select>
         <input type="hidden" name="id" value="'.$updateResult["itemID"].'"><br>
@@ -106,8 +109,8 @@
     }
 
     if(isset($_POST['addItem'])){
-        $updateSupplier = $conn->query("SELECT supplierName FROM supplier");
-        $updateBrand = $conn->query("SELECT brandName FROM brand");
+        $updateSupplier = $conn->query("SELECT supplierID, supplierName FROM supplier");
+        $updateBrand = $conn->query("SELECT brandID, brandName FROM brand");
 
         echo '<div class="jumbotron d-flex justify-content-center">
         <form action="" method="POST">
@@ -125,14 +128,14 @@
         <input type="text" name="unitCount" id="unitCount" class="form-control" placeholder="Input Unit Count">
 
         <label for="Brands">Brand:</label>
-        <select id="Brands" name="itemBrand" class="form-control">';
+        <select id="Brands" name="brandID" class="form-control">';
         while ($brand = $updateBrand->fetch_assoc()){
             echo "<option value='$brand[brandID]'>$brand[brandName]</option>";
         }
         echo '</select>
         <label for="suppliers">Supplier:</label>
 
-        <select id="suppliers" name="itemSupplier" class="form-control">';
+        <select id="suppliers" name="supplierID" class="form-control">';
         while ($supplier = $updateSupplier->fetch_assoc()){
             echo "<option value='$supplier[supplierID]'>$supplier[supplierName]</option>";
         }
@@ -169,60 +172,22 @@
         </div>';
     }
 
-    if(isset($_POST['newItem'])){
-        
-        $createQuery = "INSERT INTO item (brandID, itemName, price, sellingPrice, unitCount, supplierID) VALUES ('$_POST[itemBrand]','$_POST[name]', '$_POST[price]', '$_POST[sellPrice]','$_POST[unitCount]', '$_POST[itemSupplier]')";
-        if ($conn->query($createQuery) === TRUE) {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>Item Added Successfully</h1></div>';
-        }else {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>error</h1>  </div>';
-        }
-    }
-
-    if(isset($_POST['newBrand'])){
-        $createQuery = "INSERT INTO brand (brandName) VALUES '$_POST[brandName]'";
-
-        if ($conn->query($createQuery) === TRUE) {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>Brand Added Successfully</h1></div>';
-        }else {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>"Error: " . $sql . "<br>" . $conn->error</h1>  </div>';
-        }
-    }
-
-    if(isset($_POST['newSupplier'])){
-        $createQuery = "INSERT INTO supplier (supplierName, supplierAddress, supplierContact) VALUES ('$_POST[supplierName]','$_POST[supplierAddress]', '$_POST[supplierContact]')";
-
-        if ($conn->query($createQuery) === TRUE) {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>Supplier Added Successfully</h1></div>';
-        }else {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>"Error: " . $sql . "<br>" . $conn->error</h1>  </div>';
-        }
-    }
-
-    if(isset($_POST['update'])){
-        echo $_POST['itemBrand'];
-        $sql = "UPDATE item SET itemName='".$_POST['name']."', price='".$_POST['price']."', sellingPrice='".$_POST['sellPrice']."', unitCount='".$_POST['unitCount'].", supplierID='".$_POST['itemSupplier']."', brandID='".$_POST['itemBrand']." WHERE itemID=".$_POST['id']."";
-
-        if ($conn->query($sql) === TRUE) {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>Updated Successfully</h1></div>';
-        } else {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>"Error: " . $sql . "<br>" . $conn->error</h1>  </div>';
-        }
-    }
-
     if(isset($_POST['editTag'])){
         header('Location: tag.php');
     }
 
-    if(isset($_POST['Delete'])){
-        $sql = "DELETE FROM item WHERE itemID=".$_POST['id']."";
-
-        if ($conn->query($sql) === TRUE) {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>Deleted Successfully</h1></div>';
-        } else {
-            echo '<div class="jumbotron d-flex justify-content-center"> <h1>"Error: " . $sql . "<br>" . $conn->error</h1>  </div>';
-        }
+    if(isset($_POST['addBranch'])){
+        echo '<div class="jumbotron d-flex justify-content-center">
+        <form action="" method="POST">
+        <h1>Add to Branch</h1>
+        <label for="inputName">Brand Name:</label>
+        <input type="text" name="brandName" id="inputName" class="form-control" placeholder="Input Brand Name"}>
+        <input type="submit" value="Add Brand" name="newBrand" class="btn btn-primary">
+        </form>
+        </div>';
     }
+
+    require 'itemSQL.php';
     ?>
     
 </body>

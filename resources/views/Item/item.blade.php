@@ -48,9 +48,10 @@
                     </td>
                     <td>{{$item->dateAdded}}</td>
                     <td><form action='itemActions' method='POST'>
-                        <input type='hidden' name='id' value='$row[itemID]'> 
-                        <input type='submit' name='edit' class='btn btn-success' value='Edit'>
-                        <input type='submit' name='delete' class='btn btn-danger' value='Delete'>
+                        @csrf
+                        <input type='hidden' name='id' value='{{$item->itemID}}'> 
+                        <input type='submit' name='button' class='btn btn-success' value='Edit'>
+                        <input type='submit' name='button' class='btn btn-danger' value='Delete'>
                     </form></td>
                 </tr>
             @endforeach
@@ -58,6 +59,18 @@
     </div>
     @if(isset($newItem))
         @include('Item.newItem')
+    @endif
+
+    @if(isset($newBrand))
+        @include('Item.newBrand')
+    @endif
+
+    @if(isset($newSupplier))
+        @include('Item.newSupplier')
+    @endif
+
+    @if(isset($editItem))
+        @include('Item.editItem')
     @endif
 </body>
 </html>

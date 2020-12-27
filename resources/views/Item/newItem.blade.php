@@ -1,5 +1,6 @@
 <div class="jumbotron d-flex justify-content-center">
     <form action="newItem" method="POST">
+        @csrf
         <h1> New Item</h1>
         <label for="inputName">Item Name:</label>
         <input type="text" name="name" id="inputName" class="form-control" placeholder="Input Name"}>
@@ -27,4 +28,5 @@
         @endforeach
         </select>
         <input type="submit" value="Add Item" name="newItem" class="btn btn-primary">
+    </form>
 </div>

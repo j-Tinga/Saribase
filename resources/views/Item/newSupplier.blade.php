@@ -1,5 +1,6 @@
 <div class="jumbotron d-flex justify-content-center">
-    <form action="" method="POST">
+    <form action="newSupplier" method="POST">
+    @csrf
         <h1>New Supplier</h1>
         <label for="inputName">Supplier Name:</label>
         <input type="text" name="supplierName" id="inputName" class="form-control" placeholder="Input Supplier Name"}>
@@ -8,5 +9,6 @@
         <label for="inputContact">Supplier Contact:</label>
         <input type="text" name="supplierContact" id="inputContact" class="form-control" placeholder="Input Supplier Contact"}>
         <input type="submit" value="Add Supplier" name="newSupplier" class="btn btn-primary">
+        
     </form>
 </div>

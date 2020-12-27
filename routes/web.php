@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,11 @@ use App\Http\Controllers\PagesController;
 */
 
 
-/* goest to item page */
-Route::get('/', [PagesController::class,'index']);
+/* goes to item page */
+Route::get('/', [PagesController::class,'main'])->name('itemPage');
+Route::view('/tags', 'Item.tags');
 
 Route::POST('addActions', [PagesController::class,'addActions']);
+Route::POST('newItem', [ItemController::class,'store']);
+Route::POST('editItem', [ItemController::class,'editItem']);
+Route::POST('itemActions', [ItemController::class,'index']);

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,14 @@ use App\Http\Controllers\ItemController;
 
 
 /* goes to item page */
+Route::get('/employees', [EmployeeController::class,'show']);
+Route::POST('showMaker', [EmployeeController::class,'showMaker']);
+
+Route::POST('addEmployee', [EmployeeController::class,'addEmployee']);
+Route::POST('editEmployee', [EmployeeController::class,'editEmployee']);
+Route::POST('employeeActions', [EmployeeController::class,'employeeActions']);
+
+
 Route::get('/', [PagesController::class,'main'])->name('itemPage');
 Route::view('/tags', 'Item.tags');
 

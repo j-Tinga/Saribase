@@ -13,6 +13,13 @@
 
             <label for="passw">Password:</label>
             <input type="text" name="passw" id="passw" class="form-control" value="{{$editEmployee->password}}">
+            
+            <label for='level'>Level: </label>
+		<select name='level' id='level' class="form-control">
+        @foreach($levels as $level)
+            <option value='{{$level->employeeLevelID}}'>{{$level->levelName}}</option>
+        @endforeach
+		</select><p></p>
 
             <label for="branch">Branch: </label>
             <select id="branch" name="branch" class="form-control">

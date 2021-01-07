@@ -27,13 +27,14 @@
     @endif
 
     <div class='jumbotron d-flex justify-content-center'>
-        <table>
+        <table> 
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Contact Number</th>
                     <th>Branch</th>
+                    <th>Permission</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -45,6 +46,11 @@
                     <td>@foreach($branches as $branch)
                             @if($branch->branchID == $employee->branchID)
                                 {{$branch->branchName}}
+                            @endif
+                        @endforeach</td>
+                    <td>@foreach($levels as $level)
+                            @if($level->employeeLevelID == $employee->employeeLevelID)
+                                {{$level->levelName}}
                             @endif
                         @endforeach</td>
                     <td><form action='employeeActions' method='POST'>

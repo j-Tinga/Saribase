@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Branch;
+use App\Models\EmployeeLevel;
 use DB;
 
 class EmployeeController extends Controller
@@ -13,18 +14,22 @@ class EmployeeController extends Controller
     {
         $data= Employee::all();
         $branches = Branch::all();
+        $levels = EmployeeLevel::all();
         return view('Employee.employee')
         ->with('employees', $data)
-        ->with('branches', $branches);
+        ->with('branches', $branches)
+        ->with('levels', $levels);
     }
 
     function showMaker()
     {
         $data= Employee::all();
         $branches = Branch::all();
+        $levels = EmployeeLevel::all();
         return view('Employee.employee')
             ->with('employees', $data)
             ->with('branches', $branches)
+            ->with('levels', $levels)
             ->with('newEmployee', 1);
     }
 
@@ -33,10 +38,12 @@ class EmployeeController extends Controller
         if($req->button == "Edit"){
             $data= Employee::all();
             $branches = Branch::all();
+            $levels = EmployeeLevel::all();
             $editEmployee = DB::table('employee')->where('employeeID', $req->id)->first();
             return view('Employee.employee')
             ->with('employees', $data)
             ->with('branches', $branches)
+            ->with('levels', $levels)
             ->with('editEmployee', $editEmployee);
             
         }else if ($req->button == "Delete"){
@@ -52,6 +59,7 @@ class EmployeeController extends Controller
         $employee->contactNumber = $req->cnumber;
         $employee->password = $req->passw;
         $employee->branchID = $req->branch;
+        $employee->employeeLevelID = $req->level;
         $employee->save();
         return redirect('employees');
     }
@@ -64,6 +72,7 @@ class EmployeeController extends Controller
         $employee->contactNumber = $req->cnumber;
         $employee->password = $req->passw;
         $employee->branchID = $req->branch;
+        $employee->employeeLevelID = $req->level;
         $employee->save();
         return redirect('employees');
     }

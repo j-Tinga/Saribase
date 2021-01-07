@@ -14,6 +14,7 @@ class PagesController extends Controller
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
         $brands = Brand::all();
         $suppliers = Supplier::all();
+        
         return view('Item.item')
         ->with('items', $items)
         ->with('tags', $tags)

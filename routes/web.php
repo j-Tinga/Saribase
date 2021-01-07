@@ -17,10 +17,11 @@ use App\Http\Controllers\ItemController;
 
 
 /* goes to item page */
-Route::get('/', [PagesController::class,'main'])->name('itemPage');
-Route::view('/tags', 'Item.tags');
+Route::get('/', [PagesController::class,'main']);
+Route::get('/tags', [PagesController::class,'main']);
+
 
 Route::POST('addActions', [PagesController::class,'addActions']);
 Route::POST('newItem', [ItemController::class,'store']);
 Route::POST('editItem', [ItemController::class,'editItem']);
-Route::POST('itemActions', [ItemController::class,'index']);
+Route::POST('itemActions', [ItemController::class,'index'])->name('itemActions');

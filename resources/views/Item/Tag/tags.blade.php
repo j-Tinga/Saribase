@@ -22,7 +22,8 @@
             @foreach($activeTags as $activeTag)
                 <tr><td>{{$activeTag->tagName}}</td>
                 <td>
-                    <form action='activeTagActions' method='POST'>
+                    <form action='tagActions' method='POST'>
+                        @csrf
                         <input type='hidden' name='id' value='{{$activeTag->tagID}}'> 
                         <input type='hidden' name='tagListID' value='{{$activeTag->tagListID}}'> 
                         <input type='submit' name='button' class='btn btn-danger' value='Remove'>
@@ -31,7 +32,20 @@
                 </td></tr>
             @endforeach
         </table>
+            
+        <form action='newTagForm' method='POST'>
+            @csrf
+            <input type='submit' name='newTag' class='btn btn-success' value='Create Tag'>
+        </form>
     </div>
+
+    <!--Forms for Tag CRUD-->
+    @if(isset($newTag))
+        @include('Item.Tag.newTag')
+    @endif
+    @if(isset($editTag))
+        @include('Item.Tag.editTag')
+    @endif
 
     <div class='jumbotron d-flex justify-content-center'>
         <table>
@@ -46,6 +60,7 @@
                 <tr><td>{{$materialTag->tagName}}</td>
                 <td>
                     <form action='tagActions' method='POST'>
+                        @csrf
                         <input type='hidden' name='id' value='{{$materialTag->tagID}}'>
                         <input type='submit' name='button' class='btn btn-success' value='Add'>
                         <input type='submit' name='button' class='btn btn-warning' value='Edit'>
@@ -65,6 +80,7 @@
                 <tr><td>{{$toolTag->tagName}}</td>
                 <td>
                     <form action='tagActions' method='POST'>
+                        @csrf
                         <input type='hidden' name='id' value='{{$toolTag->tagID}}'>
                         <input type='submit' name='button' class='btn btn-success' value='Add'>
                         <input type='submit' name='button' class='btn btn-warning' value='Edit'>
@@ -84,6 +100,7 @@
                 <tr><td>{{$colorTag->tagName}}</td>
                 <td>
                     <form action='tagActions' method='POST'>
+                        @csrf
                         <input type='hidden' name='id' value='{{$colorTag->tagID}}'>
                         <input type='submit' name='button' class='btn btn-success' value='Add'>
                         <input type='submit' name='button' class='btn btn-warning' value='Edit'>
@@ -92,5 +109,6 @@
             @endforeach
         </table>
     </div>
+   
 </body>
 </html>

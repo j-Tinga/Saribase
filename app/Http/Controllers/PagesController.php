@@ -9,7 +9,7 @@ use DB;
 
 class PagesController extends Controller
 {
-    public function main(){
+    public function itemPage(){
         $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
         $brands = Brand::all();
@@ -22,7 +22,7 @@ class PagesController extends Controller
         ->with('brands', $brands);
     }
 
-    public function addActions(Request $request){
+    public function showForms(Request $request){
         $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
         $brands = Brand::all();

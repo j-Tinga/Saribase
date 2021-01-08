@@ -1,3 +1,4 @@
+<!--Form for Creating New Item-->
 <div class="jumbotron d-flex justify-content-center">
     <form action="newItem" method="POST">
         @csrf

@@ -1,4 +1,4 @@
-<!--Main Page for Item-->
+<!--Page for Item CRUD-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +10,31 @@
 </head>
 <body>
     <div class='jumbotron d-flex justify-content-center'>
-        <form action='addActions' method='POST'>
+        <form action='adminForms' method='POST'>
             @csrf
             <input type='submit' name='button' class='btn btn-success' value='Add Item'>
             <input type='submit' name='button' class='btn btn-success' value='Add Brand'> 
             <input type='submit' name='button' class='btn btn-success' value='Add Supplier'>
         </form>
     </div>
+    
+    <!--Forms for Item CRUD-->
+    @if(isset($newItem))
+        @include('Item.newItem')
+    @endif
+
+    @if(isset($newBrand))
+        @include('Item.newBrand')
+    @endif
+
+    @if(isset($newSupplier))
+        @include('Item.newSupplier')
+    @endif
+
+    @if(isset($editItem))
+        @include('Item.editItem')
+    @endif
+
     <div class='jumbotron d-flex justify-content-center'>
         <table>
             <thead>
@@ -57,21 +75,7 @@
             @endforeach
         </table>
     </div>
-    @if(isset($newItem))
-        @include('Item.newItem')
-    @endif
-
-    @if(isset($newBrand))
-        @include('Item.newBrand')
-    @endif
-
-    @if(isset($newSupplier))
-        @include('Item.newSupplier')
-    @endif
-
-    @if(isset($editItem))
-        @include('Item.editItem')
-    @endif
+    
 </body>
 </html>
 

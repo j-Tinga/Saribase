@@ -1,3 +1,4 @@
+<!--Form for Creating New Supplier-->
 <div class="jumbotron d-flex justify-content-center">
     <form action="newSupplier" method="POST">
     @csrf

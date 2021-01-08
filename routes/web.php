@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TagController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,11 +18,18 @@ use App\Http\Controllers\ItemController;
 
 
 /* goes to item page */
-Route::get('/', [PagesController::class,'main']);
-Route::get('/tags', [PagesController::class,'main']);
+Route::get('/item', [PagesController::class,'itemPage'])->name('itemPage');
 
+/* POST actions for ItemPage*/
+Route::POST('adminForms', [PagesController::class,'showForms']);
+Route::POST('itemActions', [ItemController::class,'itemActions']);
+Route::POST('newItem', [ItemController::class,'newItem']);
+Route::POST('newBrand', [ItemController::class,'newBrand']);
+Route::POST('newSupplier', [ItemController::class,'newSupplier']);
+Route::POST('editItem', [ItemController::class,'editItemActions']);
 
-Route::POST('addActions', [PagesController::class,'addActions']);
-Route::POST('newItem', [ItemController::class,'store']);
-Route::POST('editItem', [ItemController::class,'editItem']);
-Route::POST('itemActions', [ItemController::class,'index'])->name('itemActions');
+/* POST actions for ItemPage*/
+Route::POST('newTagForm', [TagController::class,'newTagForm']);
+Route::POST('newTag', [TagController::class,'newTag']);
+Route::POST('tagActions', [TagController::class,'tagActions']); //Actions consists of Adding, Removing, Deleting and Editing Tags
+Route::POST('editTag', [TagController::class,'editTag']);

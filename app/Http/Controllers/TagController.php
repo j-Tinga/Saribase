@@ -3,82 +3,102 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Tag;
+use App\Models\TagList;
+use Session;
+use DB;
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function tagView()
     {
-        //
+        $tags = DB::table('tag_List')->where('itemID','=',Session::get('item'))->pluck('tagID');
+        $activeTags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->where('tag_List.itemID','=',Session::get('item'))->get();
+        $materialTags =  DB::table('tag')->where('tagType','=','Material')->whereNotIn('tagID', $tags)->get();
+        $toolTags = DB::table('tag')->where('tagType','=','Tool')->whereNotIn('tagID', $tags)->get();
+        $colorTags = DB::table('tag')->where('tagType','=','Color')->whereNotIn('tagID', $tags)->get();
+        return view('Item.Tag.tags')
+        ->with('activeTags', $activeTags)
+        ->with('materialTags', $materialTags)
+        ->with('toolTags', $toolTags)
+        ->with('colorTags', $colorTags);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function newTagForm(){ 
+        $tags = DB::table('tag_List')->where('itemID','=',Session::get('item'))->pluck('tagID');
+        $activeTags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->where('tag_List.itemID','=',Session::get('item'))->get();
+        $materialTags =  DB::table('tag')->where('tagType','=','Material')->whereNotIn('tagID', $tags)->get();
+        $toolTags = DB::table('tag')->where('tagType','=','Tool')->whereNotIn('tagID', $tags)->get();
+        $colorTags = DB::table('tag')->where('tagType','=','Color')->whereNotIn('tagID', $tags)->get();
+        return view('Item.Tag.tags')
+        ->with('activeTags', $activeTags)
+        ->with('materialTags', $materialTags)
+        ->with('toolTags', $toolTags)
+        ->with('colorTags', $colorTags)
+        ->with('newTag', 1);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function editTagForm($id){
+        $tags = DB::table('tag_List')->where('itemID','=',Session::get('item'))->pluck('tagID');
+        $activeTags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->where('tag_List.itemID','=',Session::get('item'))->get();
+        $materialTags =  DB::table('tag')->where('tagType','=','Material')->whereNotIn('tagID', $tags)->get();
+        $toolTags = DB::table('tag')->where('tagType','=','Tool')->whereNotIn('tagID', $tags)->get();
+        $colorTags = DB::table('tag')->where('tagType','=','Color')->whereNotIn('tagID', $tags)->get();
+        $editTag = Tag::find($id);
+        return view('Item.Tag.tags')
+        ->with('activeTags', $activeTags)
+        ->with('materialTags', $materialTags)
+        ->with('toolTags', $toolTags)
+        ->with('colorTags', $colorTags)
+        ->with('editTag', $editTag);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function tagActions(Request $request){
+        if($request->button == "Edit"){
+            return $this->editTagForm($request->id);
+        }
+        else if($request->button == "Remove"){
+            return $this->removeTag($request->tagListID);
+        }
+        else if($request->button == "Add"){
+            return $this->addTag($request->id);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function newTag(Request $request){
+        $tag = new Tag;
+        $tag->tagName = $request->tagName;
+        $tag->tagType = $request->type;
+        $tag->save();
+
+        return $this->tagView();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function addTag($id){
+        $tagList = new TagList;
+        $tagList->itemID = Session::get('item');
+        $tagList->tagID = $id;
+        $tagList->save();
+
+        return $this->tagView();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function removeTag($id){
+        TagList::destroy($id);
+        return $this->tagView();
     }
+
+    public function editTag(Request $request){
+        if($request->button == "Update Tag"){
+            $tag = Tag::find($request->id);
+            $tag->itemName = $request->newName;
+            
+            $tag->save();
+            return $this->tagView();
+        }
+        else if($request->button == "Delete Tag"){
+            Tag::destroy($request->id);
+            return $this->tagView();
+        }
+    } 
+
 }

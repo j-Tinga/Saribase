@@ -37,17 +37,17 @@ class ProductsPage extends Controller
                 foreach($items as $key => $item){
                    
                     $output .='<tr>
-                    <td>'.$item->itemID.'</td>'.
-                    '<td>'.$item->itemName.'</td>'.
-                    '<td>'.$item->tagListID.'</td>'.
-                    '<td>'.$item->tagID.'</td>'.
-                    '<td>'.$item->tagName.'</td>'.
-                    '<td>'.$item->itemQuantity.'</td>'.
-                    '<td> 
+                    <td class="px-6 py-4 whitespace-nowrap">'.$item->itemID.'</td>'.
+                    '<td class="px-6 py-4 whitespace-nowrap">'.$item->itemName.'</td>'.
+                    '<td class="px-6 py-4 whitespace-nowrap">'.$item->tagListID.'</td>'.
+                    '<td class="px-6 py-4 whitespace-nowrap">'.$item->tagID.'</td>'.
+                    '<td class="px-6 py-4 whitespace-nowrap">'.$item->tagName.'</td>'.
+                    '<td class="px-6 py-4 whitespace-nowrap">'.$item->itemQuantity.'</td>'.
+                    '<td class="px-6 py-4 whitespace-nowrap"> 
                         <form action="/addItem" method = "GET">
                             <input type="checkbox" name = "itemID" value= '.$item->itemID.'>
                             Quantity <input type = "number" name = "quantity" class="number" min= 0 max= 50>
-                            <button class= "btn btn-primary Add" > Add </button>
+                            <button class="p-0"> Add </button>
                         </form></td>'.
                     '</tr>';
                 }

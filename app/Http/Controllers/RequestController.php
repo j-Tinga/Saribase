@@ -49,7 +49,7 @@ class RequestController extends Controller
         
         $lastID = DB::table('request')->orderBy('requestID', 'DESC')->first();
         Session::put('requestID', $lastID->requestID);
-        return redirect('request_list');
+        return redirect()->route('products');
     }
 
     /**

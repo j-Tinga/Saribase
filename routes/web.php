@@ -37,7 +37,7 @@ Route::post('/login', [LoginController:: class, 'valid']);
 Route::get('/logout', [LoginController:: class, 'logout'])->name('logout');
 
 //Request Form
-Route::post('newRequest', [RequestController:: class, 'store']);
+Route::post('/products', [RequestController:: class, 'store'])->name('newRequest');
 
 //Request List
 Route::get('/addToList', [RequestListController:: class, 'store']);
@@ -46,3 +46,4 @@ Route::get('/showList', [RequestListController:: class, 'show']);
 //Live search in RequestListController
 Route::get('/live_search', [RequestListController:: class, 'action'])->name('request_list.action');
 Route::get('/searchProduct', [ProductsPage:: class, 'action'])->name('products_page.action');
+Route::get('/addItem', [ProductsPage:: class, 'store']);

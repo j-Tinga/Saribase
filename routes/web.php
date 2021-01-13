@@ -28,7 +28,7 @@ Route::get('/products/form', [ViewController:: class, 'requestform'])->name('req
 Route::get('/branches', [ViewController:: class, 'branches'])->name('branches');
 Route::get('/admin', [ViewController:: class, 'admin'])->name('admin');
 
-Route::get('/request', [ViewController:: class, 'requests'])->name('requests');
+
 
 //Login
 Route::get('/login',  [ViewController:: class, 'loginform'])->name('login');
@@ -37,13 +37,15 @@ Route::post('/login', [LoginController:: class, 'valid']);
 Route::get('/logout', [LoginController:: class, 'logout'])->name('logout');
 
 //Request Form
-Route::post('/products', [RequestController:: class, 'store'])->name('newRequest');
+Route::post('newRequest', [RequestController:: class, 'store'])->name('newRequest');
 
 //Request List
 Route::get('/addToList', [RequestListController:: class, 'store']);
-Route::get('/showList', [RequestListController:: class, 'show']);
+Route::get('/request', [ProductsPage:: class, 'show'])->name('requests');
 
 //Live search in RequestListController
 Route::get('/live_search', [RequestListController:: class, 'action'])->name('request_list.action');
 Route::get('/searchProduct', [ProductsPage:: class, 'action'])->name('products_page.action');
 Route::get('/addItem', [ProductsPage:: class, 'store']);
+
+Route::delete('cancelItem', [ProductsPage:: class, 'destroy']);

@@ -54,8 +54,9 @@
                     </tbody>
                  </table>
                  <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-md font-semibold flex items-center"> 
-                    
+                    @if (Session::get('requestID') == null)   
                      <button onclick="window.location='{{ route('requestsform') }}'"  class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 ">Request Form</button>
+                    @endif 
                      <button onclick="window.location='{{ route('requests') }}'" class="bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 ">View Request List</button>
                     </form>
              </div>

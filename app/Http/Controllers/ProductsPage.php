@@ -100,16 +100,13 @@ class ProductsPage extends Controller
     {
         //
         $id = $request->session()->get('requestID');
-        $getList = DB::table('request_list')->join('item', 'request_list.itemID', '=', 'item.itemID')->select('request_list.*', 'item.itemName')->get();
+        $getList = DB::table('request_list')->join('item', 'request_list.itemID', '=', 'item.itemID')->select('request_list.*', 'item.itemName')->where('request_list.requestID', $id)->get();
 
 
-        if($getList){
-            return view('displayList')->with('reqList', $getList);
-        }
-        else{
-            return view('request_list');
-            echo ' no result';
-        }        
+        
+            return view('contents.requests')->with('reqList', $getList);
+        
+               
 
 }
 

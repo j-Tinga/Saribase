@@ -49,3 +49,6 @@ Route::get('/searchProduct', [ProductsPage:: class, 'action'])->name('products_p
 Route::get('/addItem', [ProductsPage:: class, 'store']);
 
 Route::delete('cancelItem', [ProductsPage:: class, 'destroy']);
+
+//Register Employee
+Route::post('addEmployee',[LoginController:: class, 'store']);

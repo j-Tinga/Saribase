@@ -37,7 +37,9 @@ class ViewController extends BaseController
         ]);
     }
     public function admin(){
-        return view('contents.admin');
+        $branchID = DB::table('branch')->get('branchID');
+        
+        return view('contents.admin', ['branches'=>$branchID]);
     }
     public function requestForm()
     {

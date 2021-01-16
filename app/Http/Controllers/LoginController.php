@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Session;
 use DB;
+use Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -62,10 +63,31 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
- 
+    public function store(Request $request){
+        
+         
+        
+        $this->validate($request, [
+            'fname' =>'required|max:255',
+            'lname' =>'required|max:255',
+            'number' =>'required|Numeric',
+            'password' =>'required|confirmed',
+            'password_confirmation' =>'required',
+            'branch' =>'required',
+        ]);
+         
+        DB::table('employee')->insert([
+            'employeeLevelID'=>3,
+            'firstName'=> $request->fname,
+            'lastName'=> $request->lname,
+            'contactNumber'=> $request->number,
+            'password'=>$request->password,
+            'branchID'=>$request->branch,
+        ]);
+            
+       
+
+        return redirect()->route('admin');
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\Employee;
 
 class ViewController extends BaseController
 {
@@ -38,8 +39,9 @@ class ViewController extends BaseController
     }
     public function admin(){
         $branchID = DB::table('branch')->get('branchID');
+        $employees = Employee::all();
         
-        return view('contents.admin', ['branches'=>$branchID]);
+        return view('contents.admin', ['branches'=>$branchID], ['employees'=>$employees]);
     }
     public function requestForm()
     {

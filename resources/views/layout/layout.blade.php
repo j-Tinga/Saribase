@@ -41,8 +41,10 @@
         <div class="flex">
         @if (Session::get('empID')!=null)
             <div class=" h-screen sticky top-0 bg-gray-800 text-gray-100 flex-col" id="left-side-panel">
-
-                <h1 class=" text-xl p-2 mb-12 mr-8 mt-6">SARIBASE</h1>
+    
+                    <h1 class=" text-xl p-2 mb-12 mr-8 mt-6">SARIBASE</h1>
+                
+                
                 <a href="{{route('dashboard')}}" class="@yield('dashboard') px-2 py-4 hover:bg-gray-500 flex  text-lg">Dashboard</a>
                 <a href="{{route('products')}}" class="@yield('products') px-2 py-4 hover:bg-gray-500 flex  text-lg">Products</a>
                 <a href="{{route('requests')}}" class="@yield('requests') px-2 py-4 hover:bg-gray-500 flex text-lg">Requests</a>
@@ -64,7 +66,7 @@
             </div>
         @endif
 
-            <div class=" flex-grow p-4" id="main-content">
+            <div class=" flex-grow " id="main-content">
                 @yield('content') 
             </div>
           </div>

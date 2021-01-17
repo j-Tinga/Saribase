@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="grid grid-cols-3 gap-4 p-8 justify-center">
+<div class="m-4 grid grid-cols-3 gap-4 p-8 justify-center">
                     
                     
                          

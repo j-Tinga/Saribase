@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -37,9 +38,27 @@ class ViewController extends BaseController
         ]);
     }
     public function admin(){
-        $branchID = DB::table('branch')->get('branchID');
+        $branch = DB::table('branch')
+                    ->leftjoin('employee','branch.branchID','employee.branchID')
+                    ->select('branch.branchID','branchName','branchAddress','firstName','lastName','branchType','branchContact')
+                    ->orderBy('branchID', 'asc')
+                    ->get();
         
-        return view('contents.admin', ['branches'=>$branchID]);
+        $employees = DB::table('employee')
+                    ->join('employee_level','employee.employeeLevelID','=','employee_level.employeeLevelID')
+                    ->join('branch','employee.branchID','=','branch.branchID')
+                    ->select('employeeID','firstName','lastName','contactNumber','levelName','branchName')
+                    ->orderBy('employeeID', 'asc')
+                    ->get();
+
+        $suppliers = DB::table('supplier')->get();
+        $brands = DB::table('brand')->get();
+        return view('contents.admin', [
+                                        'branches'=>$branch, 
+                                        'employees'=>$employees,
+                                        'suppliers'=>$suppliers,
+                                        'brands'=>$brands,
+                                      ]);
     }
     public function requestForm()
     {

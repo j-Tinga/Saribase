@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsPage;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RequestListController;
@@ -52,3 +53,5 @@ Route::delete('cancelItem', [ProductsPage:: class, 'destroy']);
 
 //Register Employee
 Route::post('addEmployee',[LoginController:: class, 'store']);
+//New Branch
+Route::post('addBranch', [BranchController::class, 'store']);

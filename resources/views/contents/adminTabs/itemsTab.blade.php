@@ -7,7 +7,7 @@
                         <h2>Item List</h2>
                     </div>
                     <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-lg font-semibold flex items-center"> 
-                        <button onclick="toggleModal('item')" class="mr-6 bg-blue-500 text-white px-4 py-3 w-24 rounded-sm text-sm hover:bg-blue-300 ">Add</button>
+                        <button onclick="toggleModal('newItem')" class="mr-6 bg-blue-500 text-white px-4 py-3 w-24 rounded-sm text-sm hover:bg-blue-300 ">Add</button>
                     </div>
                 </div>
                 <table class="min-w-full divide-y divide-gray-500">
@@ -80,15 +80,12 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap flex">
                                 <div class="text-sm text-gray-900 ">
-                                    <form action="" method = "POST">
-                                        @csrf
-                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Edit</button>
-                                    </form>
+                                <button onclick="toggleModal('editItem')" class=" bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300 ">Edit</button>
                                 </div>
                                 <div class="text-sm text-gray-900 ml-12">
-                                    <form action="" method = "POST">
+                                    <form action="delete" method = "POST">
                                         @csrf
-                                        <button type="submit" class="text-red-500 hover:text-red-900">Delete</button>
+                                        <button class="bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300 ">Delete</button>
                                     </form>
                                 </div>
                             </td>

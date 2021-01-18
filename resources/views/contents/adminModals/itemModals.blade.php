@@ -1,4 +1,5 @@
-<div class=" hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center" id="item">
+<!--New Item Modal -->
+<div class=" hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center" id="newItem">
     <div class="w-3/12 relative w-auto my-6 mx-auto max-w-3xl">
       <!--content-->
       <div class=" border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -7,21 +8,21 @@
           <h3 class="text-3xl font-semibold">
             Add Item
           </h3>
-          <button class="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold outline-none" onclick="toggleModal('item')">
+          <button class="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold outline-none" onclick="toggleModal('newItem')">
               ×
           </button>
         </div>
         <!--body-->
         <div class="w-full relative w-96 p-6 flex-auto">
          
-          <form action="addEmployee" method = "post">
+          <form action="newItem" method = "post">
               @csrf
               
-              <div class = "p-0 mb-4 flex "> <!--first and last name -->
+              <div class = "p-0 mb-4 flex ">
                   <div class="w-full">
   
-                      <label for="fname" class ="sr-only">First Name</label>
-                      <input type="text" name="fname" id="fname" placeholder="First Name" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm ">
+                      <label for="fname" class ="sr-only">Item Name:</label>
+                      <input type="text" name="name" id="inputName" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm" placeholder="Item Name">
                       @error('fname')
                           <div class ="m-2 text-red-500 mt-2 text-sm">
                               {{$message}}
@@ -30,8 +31,8 @@
                   </div>
   
                   <div class="w-full ml-6">
-                      <label for="lname" class ="sr-only">Last Name</label>
-                      <input type="text"name="lname" id="lname" placeholder="Last Name" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm ">
+                      <label for="lname" class ="sr-only">Price:</label>
+                      <input type="text" name="price" id="price" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm" placeholder="Price">
                       @error('lname')
                           <div class ="m-2 text-red-500 mt-2 text-sm">
                               {{$message}}
@@ -41,9 +42,9 @@
                   
               </div>
   
-              <div class = "mb-4"> <!--number -->
-                  <label for="number" class ="sr-only">Contact Number</label>
-                  <input type="text"name="number" id="number" placeholder="Contact Number" class="bg-gray-200 border-2 w-full h-1 p-4 rounded-sm ">
+              <div class = "mb-4"> 
+                  <label for="number" class ="sr-only">Unit Count:</label>
+                  <input type="text"name="number" id="number" placeholder="Unit Count" class="bg-gray-200 border-2 w-full h-1 p-4 rounded-sm ">
                   @error('number')
                   <div class ="m-2 text-red-500 mt-2 text-sm">
                       {{$message}}
@@ -51,11 +52,10 @@
                   @enderror
               </div>
               <div class="flex mb-4">
-                  <label for="branch" class="m-2">Branch ID: </label>
-                  <select name="branch" id="branch" class="w-12 bg-gray-200 border-2 rounded-sm text-center">
-                      
-                      @foreach ($branches as $branch)
-                          <option value="{{$branch->branchID}}">{{$branch->branchID}}</option>
+                  <label for="brandID" class="m-2">Brand:</label>
+                  <select id="Brands" name="brandID" class="w-12 bg-gray-200 border-2 rounded-sm text-center">             
+                     @foreach($brands as $brand)
+                      <option value='{{$brand->brandID}}'>{{$brand->brandName}}</option>
                       @endforeach
                   </select>
                   @error('branch')
@@ -64,19 +64,14 @@
                   </div>
                   @enderror
               </div>
-              <div class = "mb-4"> <!--password -->
-                  <label for="password" class ="sr-only">Password</label>
-                  <input type="password"name="password" id="password" placeholder="Password" class="bg-gray-200 border-2 w-full h-1 p-4 rounded-sm ">
-                  @error('password')
-                  <div class ="m-2 text-red-500 mt-2 text-sm">
-                      {{$message}}
-                  </div>
-                  @enderror
-              </div>
-              <div class = "mb-8"> <!--c_password -->
-                  <label for="password_confirmation" class ="sr-only">Confirm Password</label>
-                  <input type="password"name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" class="bg-gray-200 border-2 w-full h-1 p-4 rounded-sm" >
-                  @error('password_confirmation')
+              <div class="flex mb-4">
+                  <label for="itemSupplier" class="m-2">Supplier:</label>
+                  <select id="suppliers" name="itemSupplier" class="w-12 bg-gray-200 border-2 rounded-sm text-center">     
+                  @foreach($suppliers as $supplier)
+                        <option value='{{$supplier->supplierID}}'>{{$supplier->supplierName}}</option>
+                  @endforeach
+                  </select>
+                  @error('branch')
                   <div class ="m-2 text-red-500 mt-2 text-sm">
                       {{$message}}
                   </div>
@@ -84,7 +79,7 @@
               </div>
               <div class="mt-6 flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
           
-                  <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('item')">
+                  <button type="submit" value="Add Item" name="newItem" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('newItem')">
                     Confirm
                   </button>
                   

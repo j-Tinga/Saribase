@@ -8,6 +8,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RequestListController;
+use App\Http\Controllers\ItemController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,3 +62,14 @@ Route::delete('cancelItem', [ProductsPage:: class, 'destroy']);
 
 //Register Employee
 Route::post('addEmployee',[LoginController:: class, 'store']);
+
+//Admin Actions
+Route::POST('itemActions', [ItemController::class,'itemActions']);  
+Route::POST('newItem', [ItemController::class,'newItem']);
+Route::POST('newBrand', [ItemController::class,'newBrand']);
+Route::POST('newSupplier', [ItemController::class,'newSupplier']);
+Route::POST('editItem', [ItemController::class,'editItemActions']);
+
+Route::POST('newTag', [TagController::class,'newTag']);
+Route::POST('tagActions', [TagController::class,'tagActions']); 
+Route::POST('editTag', [TagController::class,'editTag']);

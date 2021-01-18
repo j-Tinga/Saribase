@@ -22,9 +22,9 @@
         
         <nav class="fixed flex w-full flex-wrap p-2 bg-gray-800">
             <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-              <div class="relative flex items-center justify-center h-16">
+              <div class="relative flex items-center h-16">
                 
-                    <div class="flex space-x-16 justify-center">
+                    <div class="space-x-16">
                       
                       <button class="focus:outline-none focus:bg-gray-900 hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium" onclick="toggleTable('t_employee')">Employees</button>
                       <button class="focus:outline-none focus:bg-gray-900 hover:bg-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium" onclick="toggleTable('t_items')">Items</button>

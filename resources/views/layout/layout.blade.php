@@ -40,8 +40,9 @@
 
         <div class="flex">
         @if (Session::get('empID')!=null)
-            <div class=" h-screen sticky top-0 bg-gray-800 text-gray-100 flex-col" id="left-side-panel">
-    
+            
+            <div class="overflow-y-auto h-screen sticky top-0 bg-gray-800 text-gray-100 flex-col" id="left-side-panel">
+
                     <h1 class=" text-xl p-2 mb-12 mr-8 mt-6">SARIBASE</h1>
                 
                 

@@ -15,7 +15,11 @@ class ViewController extends BaseController
 
     public function dashboard()
     {
-        return view('contents.dashboard');
+        $branches = DB::table('branch')->get();
+       
+        return view('contents.dashboard',[
+            'branches'=>$branches,
+        ]);
     }
     public function loginform()
     {
@@ -59,6 +63,7 @@ class ViewController extends BaseController
                                         'suppliers'=>$suppliers,
                                         'brands'=>$brands,
                                       ]);
+
     }
     public function requestForm()
     {

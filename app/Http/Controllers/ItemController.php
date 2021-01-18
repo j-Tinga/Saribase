@@ -70,6 +70,7 @@ class ItemController extends Controller
         $item->unitCount = $request->unitCount;
         $item->brandID = $request->brandID;
         $item->supplierID = $request->itemSupplier;
+        $item->dateAdded = date('Y-m-d');
         $item->save();
         
         return $this->itemView();

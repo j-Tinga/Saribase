@@ -41,10 +41,20 @@
                   </div>
                   
               </div>
+
+                    <div class="mb-4">
+                      <label for="selpric" class ="sr-only">Selling Price:</label>
+                      <input type="text" name="sellPrice" id="selpric" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm" placeholder="Selling Price">
+                      @error('lname')
+                          <div class ="m-2 text-red-500 mt-2 text-sm">
+                              {{$message}}
+                          </div>
+                      @enderror
+                  </div>
   
               <div class = "mb-4"> 
                   <label for="number" class ="sr-only">Unit Count:</label>
-                  <input type="text"name="number" id="number" placeholder="Unit Count" class="bg-gray-200 border-2 w-full h-1 p-4 rounded-sm ">
+                  <input type="text"name="unitCount" id="number" placeholder="Unit Count" class="bg-gray-200 border-2 w-full h-1 p-4 rounded-sm ">
                   @error('number')
                   <div class ="m-2 text-red-500 mt-2 text-sm">
                       {{$message}}

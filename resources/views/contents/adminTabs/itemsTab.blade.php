@@ -6,6 +6,7 @@
                     <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-xl uppercase flex items-center"> 
                         <h2>Item List</h2>
                     </div>
+                    <input type="text" id="search" name ="search" placeholder = "Search" class="w-2/6 m-1 rounded-md " value = "">
                     <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-lg font-semibold flex items-center"> 
                         <button onclick="toggleModal('newItem')" class="mr-6 bg-blue-500 text-white px-4 py-3 w-24 rounded-sm text-sm hover:bg-blue-300 ">Add</button>
                     </div>
@@ -42,7 +43,7 @@
                             </th>
                         </tr>   
                     </thead> 
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-gray-200" id ="itemBody">
                     @foreach($items as $item)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -98,3 +99,18 @@
         </div>  
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $('#searchItem').on('keyup',function(){
+        $value=$(this).val();
+            $.ajax({
+            type : 'get',
+            url : '{{URL::to('searchItem')}}',
+            data:{'search':$value},
+            success:function(data){
+            $('itemBody').html(data);
+            }
+        });
+})
+</script>

@@ -13,7 +13,7 @@ class ItemController extends Controller
     public function itemView()
     {
         $branch = DB::table('branch')
-                    ->leftjoin('employee','branch.branchID','employee.branchID')
+                    ->leftjoin('employee','branch.branchManagerID','employee.employeeID')
                     ->select('branch.branchID','branchName','branchAddress','firstName','lastName','branchType','branchContact')
                     ->orderBy('branchID', 'asc')
                     ->get();
@@ -36,24 +36,48 @@ class ItemController extends Controller
                                         'suppliers'=>$suppliers,
                                         'brands'=>$brands,
                                         'items'=>$items,
-                                        'tags'=>$tags
+                                        'tags'=>$tags,
+                                        'activeTable' => "t_items"
                                       ]);
     }
 
     public function itemActions(Request $request)
     {
         if($request->button == "Edit"){
-            $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
-            $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
-            $brands = Brand::all();
-            $suppliers = Supplier::all();
-            $editItem = DB::table('item')->where('itemID', $request->id)->first();
-            return view('Item.item')
-            ->with('items', $items)
-            ->with('tags', $tags)
-            ->with('suppliers', $suppliers)
-            ->with('editItem', $editItem)
-            ->with('brands', $brands);
+        $branch = DB::table('branch')
+                    ->leftjoin('employee','branch.branchManagerID','employee.employeeID')
+                    ->select('branch.branchID','branchName','branchAddress','firstName','lastName','branchType','branchContact')
+                    ->orderBy('branchID', 'asc')
+                    ->get();
+        
+        $employees = DB::table('employee')
+                    ->join('employee_level','employee.employeeLevelID','=','employee_level.employeeLevelID')
+                    ->join('branch','employee.branchID','=','branch.branchID')
+                    ->select('employeeID','firstName','lastName','contactNumber','levelName','branchName')
+                    ->orderBy('employeeID', 'asc')
+                    ->get();
+        
+
+        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
+        $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
+        $editItem = DB::table('item')->where('itemID', $request->id)->first();
+        
+
+        $suppliers = DB::table('supplier')->get();
+        $brands = DB::table('brand')->get();
+        
+        return view('contents.admin', [
+                                        'branches'=>$branch, 
+                                        'employees'=>$employees,
+                                        'suppliers'=>$suppliers,
+                                        'brands'=>$brands,
+                                        'items'=>$items,
+                                        'tags'=>$tags,
+                                        'editItem' => $editItem,
+                                        'activeModal' => "editItem",
+                                        'activeTable' => "t_items",
+                                        
+                                      ]);
             
         }else if ($request->button == "Delete"){
             return $this->destroyItem($request->id);
@@ -149,8 +173,8 @@ class ItemController extends Controller
         $item->sellingPrice = $request->sellPrice;
         $item->unitCount = $request->unitCount;
         $item->supplierID = $request->itemSupplier;
-        $item->brandID = $request->itemBrand;
-
+        $item->brandID = $request->brandID;
+        $item->dateAdded = date('Y-m-d');
         $item->save();
         return $this->itemView();
     }

@@ -45,9 +45,11 @@
 @include('contents.adminModals.branchModals')
 <!--Supplier Modal-->       
 @include('contents.adminModals.supplierModals')
+<!--Brand Modal-->       
+@include('contents.adminModals.brandModals')
 
 <script type="text/javascript">
-  
+
   function toggleModal(modalID){
     document.getElementById(modalID).classList.toggle("hidden");
     document.getElementById("backdrop").classList.toggle("hidden");
@@ -73,7 +75,7 @@
   @endif
 
   @if(isset($activeModal))
-    toggleModal({{$activeModal}});
+    toggleModal('{{$activeModal}}');
   @endif
 </script>
 

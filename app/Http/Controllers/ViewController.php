@@ -67,7 +67,7 @@ class ViewController extends BaseController
     }
     public function admin(){
         $branch = DB::table('branch')
-                    ->leftjoin('employee','branch.branchID','employee.branchID')
+                    ->leftjoin('employee','branch.branchManagerID','employee.employeeID')
                     ->select('branch.branchID','branchName','branchAddress','firstName','lastName','branchType','branchContact')
                     ->orderBy('branchID', 'asc')
                     ->get();

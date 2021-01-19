@@ -9,6 +9,10 @@ use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RequestListController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,10 +72,16 @@ Route::get('searchItem', [ItemController::class,'itemActions'])->name('item_page
 
 Route::POST('itemActions', [ItemController::class,'itemActions']);  
 Route::POST('newItem', [ItemController::class,'newItem']);
-Route::POST('newBrand', [ItemController::class,'newBrand']);
-Route::POST('newSupplier', [ItemController::class,'newSupplier']);
 Route::POST('editItem', [ItemController::class,'editItemActions']);
 
 Route::POST('newTag', [TagController::class,'newTag']);
 Route::POST('tagActions', [TagController::class,'tagActions']); 
 Route::POST('editTag', [TagController::class,'editTag']);
+
+Route::POST('branchActions', [BranchController::class,'branchActions']);  
+Route::POST('newBranch', [BranchController::class,'newBranch']);
+Route::POST('editBranch', [BranchController::class,'editBranch']);
+
+Route::POST('supplierActions', [SupplierController::class,'supplierActions']);  
+Route::POST('newSupplier', [SupplierController::class,'newSupplier']);
+Route::POST('editSupplier', [SupplierController::class,'editSupplier']);

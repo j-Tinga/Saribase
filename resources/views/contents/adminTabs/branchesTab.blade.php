@@ -62,18 +62,14 @@
                                     <div class="text-sm text-gray-900">{{$branch->branchContact}}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap flex">
-                                    <div class="text-sm text-gray-900 ">
-                                        <form action="" method = "POST">
-                                            @csrf
-                                            <button type="submit" class="text-indigo-600 hover:text-indigo-900">Edit</button>
-                                        </form>
-                                        
-                                    </div>
                                     <div class="text-sm text-gray-900 ml-12">
-                                        <form action="" method = "POST">
+                                        <form action="branchActions" method = "POST">
                                             @csrf
-                                            <button type="submit" class="text-red-500 hover:text-red-900">Delete</button>
+                                            <input type='hidden' name='id' value='{{$branch->branchID}}'>
+                                            <button name='button' id="editButton" value='Edit' class=" bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300 ">Edit</button>
+                                            <button class="bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300" name='button' id="editButton" value='Delete'>Delete</button>
                                         </form>
+                                    </div>
                                     </div>
                                 </td>
                                 

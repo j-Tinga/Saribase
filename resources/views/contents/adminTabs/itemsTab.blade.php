@@ -83,13 +83,11 @@
                                  </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap flex">
-                                <div class="text-sm text-gray-900 ">
-                                <button onclick="toggleModal('editItem')" class=" bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300 ">Edit</button>
-                                </div>
                                 <div class="text-sm text-gray-900 ml-12">
                                     <form action="itemActions" method = "POST">
                                         @csrf
                                         <input type='hidden' name='id' value='{{$item->itemID}}'>
+                                        <button name='button' id="editButton" value='Edit' class=" bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300 ">Edit</button>
                                         <button class="bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300" name='button' id="editButton" value='Delete'>Delete</button>
                                     </form>
                                 </div>

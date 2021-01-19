@@ -7,7 +7,7 @@
 @section('content')
 
 
-@if ($reqList->count())
+@if ($requests->count())
 <div class="flex justify-center">
     <div class="w-9/12 flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -27,14 +27,23 @@
                   <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                           <tr>
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Item ID
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Request ID
                              </th>
                              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Item Name
+                                    Employee Name
                              </th>
                              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Quantity
+                                    Branch Name
+                             </th>
+                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Date Requested
+                             </th>
+                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                   Payment Type
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                   Status
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Action
@@ -42,27 +51,63 @@
                           </tr>   
                     </thead> 
                     <tbody class="bg-white divide-y divide-gray-200">    
-                        @foreach($reqList as $b)    
+                        @foreach($requests as $b)    
                                         <tr>
-                                           <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{$b->itemID}}</div>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$b->requestID}}</div>
                
                                            </td>
                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{$b->itemName}}</div>
+                                                <div class="text-sm text-gray-900">{{$b->firstName}}</div>
+               
+                                           </td>
+                                           <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$b->branchName}}</div>
+               
+                                           </td>
+                                           <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$b->dateRequested}}</div>
                                            
                                            </td>
                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{$b->quantityRequested}}</div>
+                                                <div class="text-sm text-gray-900">{{$b->paymentType}}</div>
+                                           </td>
+                                           <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$b->requestStatus}}</div>
                                            </td>
                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+
+                                            <div class="text-sm text-gray-900 ">
+                                                <form action="/showReqList " method= "GET" class="mb-2">
+                                                    @csrf
+                                                    <input type="hidden" name ="requestID" value = {{$b->requestID}}>
+                                                    <button id = "showbtn" class="text-indigo-600 hover:text-indigo-900"> Show Request List </button>
+                                                </form>
                                                 <form action="cancelItem" method= "POST">
                                                     @csrf
                                                     @method('delete')
-                                                    <input type="hidden" name="itemID" value = {{$b->itemID}}>
+                                                    <input type="hidden" name="reqID" value = {{$b->requestID}}>
+                                                    <button class="text-red-500 hover:text-red-900">Cancel</button>
+                                                    
+                                                </form>
+                                            </div>
+                                           
+
+
+
+                                            <!--    <form action="cancelItem" method= "POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <input type="hidden" name="reqID" value = {{$b->requestID}}>
                                                     <button class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 ">Cancel</button>
                                                 </form>
-                                            
+                                                <form action="/showReqList " method= "GET" >
+                                                    @csrf
+                                                    <input type="hidden" name ="requestID" value = {{$b->requestID}}>
+                                                    <button id = "showbtn" class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 "> Show Request List </button>
+                                                </form> -->
+
+                                                <!-- <button onclick="toggleModal('item'); sendData()" name = "showbtn" class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 " value = {{$b->requestID}}> <span name = "requestID">{{$b->requestID}}</span> Show Request List </button> -->
                                            </td>
                                         
                                         </tr>                   
@@ -70,52 +115,32 @@
                     </tbody>
                  </table>
                  
+                
+
                 </div>
               </div>  
             </div>
     </div>
 </div>
+
+<script type="text/javascript">
+  function toggleModal(modalID){
+    document.getElementById(modalID).classList.toggle("hidden");
+    document.getElementById("backdrop").classList.toggle("hidden");
+    document.getElementById(modalID).classList.toggle("flex");
+    document.getElementById("backdrop").classList.toggle("flex");
+
+  }
+
+</script>
+
 @else 
 <div class="flex justify-center">
     <div>
         <h1>No Requests</h1>
     </div>
 @endif
-<!--
 
-    <div align= "center"id= "loginform" class = "jumbotron" >
-            <h1>This is the Request List</h1>
-            <table>
-                <thead>
-                     <tr>
-                        <th> Item ID </th>
-                        <th> Item Name </th>
-                        <th> Quantity </th>
-                        <th> Action </th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($reqList as $b)
-                    @if($b->requestID == Session::get('requestID'))
-                    <tr>
-                        <td>{{$b->itemID}}</td>
-                        <td>{{$b->itemName}}</td>
-                        <center><td>{{$b->quantityRequested}}</td></center>
-                        <td>
-                        <form action="cancelItem" method= "POST">
-                            @csrf
-                            @method('delete')
-                            <input type="hidden" name="itemID" value = {{$b->itemID}}>
-                            <button  class= "btn btn-primary">Cancel</button>
-                        </form>
-                        </td>
-                    </tr> 
-                    @endif  
-                @endforeach
-                </tbody>
-            </table>
-     
-            <button onclick="window.location='{{ url('/products') }}'"  class= "btn btn-primary"> Return to Products page </button>
-        </div> -->
-   
+
 @endsection
+

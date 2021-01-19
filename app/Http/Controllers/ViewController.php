@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -27,11 +28,27 @@ class ViewController extends BaseController
     }
     public function requests()
     {
-        return view('contents.requests');
+        $requests = DB::table('request')
+        ->join('employee', 'request.requesterID', 'employee.employeeID')
+        ->join('branch', 'employee.branchID', 'branch.branchID')->get();
+      
+        return view('contents.requests')->with('requests', $requests);
     }
     public function products()
     {
-        return view('contents.products');
+        $items = DB::table('item')
+            ->join('branch_inventory', 'item.itemID','branch_inventory.itemID')
+            ->join('tag_list', 'item.itemID','tag_list.itemID')
+            ->join('tag', 'tag_list.tagID', 'tag.tagID')
+            ->where('branchID',Session::get('branchID'))
+            ->orderBy('itemQuantity', 'asc')->get();
+
+        $getList = DB::table('request_list')
+            ->join('item', 'request_list.itemID', '=', 'item.itemID')
+            ->select('request_list.*', 'item.itemName')
+            ->where('request_list.requestID', Session::get('requestID'))->get();
+
+        return view('contents.products')->with('items', $items)->with('reqList', $getList);
     }
     public function branches()
     {

@@ -49,7 +49,7 @@ class RequestController extends Controller
         
         $lastID = DB::table('request')->orderBy('requestID', 'DESC')->first();
         Session::put('requestID', $lastID->requestID);
-        return redirect()->route('products');
+        return redirect('products');
     }
 
     /**
@@ -58,9 +58,19 @@ class RequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $id = $request->input('requestID');
+
+        if($id){
+        
+        $requestList = DB::table('request_list')
+        ->join('item', 'request_list.itemID','item.itemID')
+        ->where('request_list.requestID', $id)->get();
+      
+        return view('contents.requestlist')->with('reqList', $requestList);  
+        }  
+
     }
 
     /**
@@ -92,9 +102,11 @@ class RequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+        $req_id = $request->session()->forget('requestID');
+        return redirect('products');
     }
 
 }

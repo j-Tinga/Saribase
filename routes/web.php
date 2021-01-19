@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsPage;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RequestListController;
@@ -26,6 +25,8 @@ Route::get('/', [ViewController:: class, 'loginform']);
 Route::get('/dashboard', [ViewController:: class, 'dashboard'])->name('dashboard');
 Route::get('/products', [ViewController:: class, 'products'])->name('products');
 Route::get('/products/form', [ViewController:: class, 'requestform'])->name('requestsform');
+Route::get('/requests', [ViewController:: class, 'requests'])->name('requests');
+Route::get('/requestlist', [ViewController:: class, 'requestlist'])->name('requestlist');
 Route::get('/branches', [ViewController:: class, 'branches'])->name('branches');
 Route::get('/admin', [ViewController:: class, 'admin'])->name('admin');
 
@@ -39,19 +40,24 @@ Route::get('/logout', [LoginController:: class, 'logout'])->name('logout');
 
 //Request Form
 Route::post('newRequest', [RequestController:: class, 'store'])->name('newRequest');
+Route::get('/sendRequest', [RequestController:: class, 'destroy'])->name('sendRequest');
+
+Route::get('/showReqList', [RequestController:: class, 'show'])->name('showReqList');
 
 //Request List
 Route::get('/addToList', [RequestListController:: class, 'store']);
-Route::get('/request', [ProductsPage:: class, 'show'])->name('requests');
+// Route::get('/requestsList', [RequestController:: class, 'show'])->name('requestsList');
 
 //Live search in RequestListController
 Route::get('/live_search', [RequestListController:: class, 'action'])->name('request_list.action');
+
+//Live search in Products Page
 Route::get('/searchProduct', [ProductsPage:: class, 'action'])->name('products_page.action');
 Route::get('/addItem', [ProductsPage:: class, 'store']);
+
+
 
 Route::delete('cancelItem', [ProductsPage:: class, 'destroy']);
 
 //Register Employee
 Route::post('addEmployee',[LoginController:: class, 'store']);
-//New Branch
-Route::post('addBranch', [BranchController::class, 'store']);

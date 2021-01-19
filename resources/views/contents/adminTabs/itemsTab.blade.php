@@ -6,9 +6,12 @@
                     <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-xl uppercase flex items-center"> 
                         <h2>Item List</h2>
                     </div>
-                    <input type="text" id="search" name ="search" placeholder = "Search" class="w-2/6 m-1 rounded-md " value = "">
+                    <form action="searchItem" method = "POST">
+                        @csrf
+                        <input type="text" id="search" name ="search" placeholder = "Search" class="w-2/6 m-1 rounded-md " value = "">
+                    </form>
                     <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-lg font-semibold flex items-center"> 
-                        <button onclick="toggleModal('newItem')" class="mr-6 bg-blue-500 text-white px-4 py-3 w-24 rounded-sm text-sm hover:bg-blue-300 ">Add</button>
+                        <button onclick="toggleModal('newItem')" class="mr-6 bg-green-500 text-white px-4 py-3 w-24 rounded-sm text-sm hover:bg-green-300 ">New Item</button>
                     </div>
                 </div>
                 <table class="min-w-full divide-y divide-gray-500">
@@ -87,7 +90,7 @@
                                     <form action="itemActions" method = "POST">
                                         @csrf
                                         <input type='hidden' name='id' value='{{$item->itemID}}'>
-                                        <button class="bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300" name='button' value='Delete'>Delete</button>
+                                        <button class="bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300" name='button' id="editButton" value='Delete'>Delete</button>
                                     </form>
                                 </div>
                             </td>

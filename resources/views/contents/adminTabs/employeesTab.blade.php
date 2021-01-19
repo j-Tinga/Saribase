@@ -5,7 +5,7 @@
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-md">
                     <div class="flex whitespace-nowrap bg-white justify-between">
                         <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-xl uppercase flex items-center"> 
-                            <h2>Employee List</h2>
+                            <h2>Employee Table</h2>
                             
                         </div>
                         <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-lg font-semibold flex items-center"> 
@@ -59,9 +59,9 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap flex">
                                             <div class="text-sm text-gray-900 ">
-                                                <form action="" method = "POST">
+                                                <form action="searchItem" method = "POST">
                                                     @csrf
-                                                    <button type="submit" class="text-indigo-600 hover:text-indigo-900">Edit</button>
+                                                    <button type="submit" onclick="toggleModal('employee')" class="text-indigo-600 hover:text-indigo-900">Edit</button>
                                                 </form>
                                             </div>
                                             <div class="text-sm text-gray-900 ml-12">

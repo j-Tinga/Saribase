@@ -8,18 +8,6 @@
 
 
 <div class="bg-gray-800 justify-center">
-                    
-                    
-    <!--    <div class="flex justify-center">
-            <button class="bg-blue-500 text-white px-4 py-3 rounded-sm font-medium w-1/2 hover:bg-blue-300" type="button" onclick="toggleModal('employee')"> Add Employee </button>
-        </div>
-        <div class="flex justify-center">
-            <button class="bg-blue-500 text-white px-4 py-3 rounded-sm font-medium w-1/2 hover:bg-blue-300" type="button" onclick="toggleModal('item')"> Add Item </button>
-        </div>     
-        <div class="flex justify-center">
-            <button class="bg-blue-500 text-white px-4 py-3 rounded-sm font-medium w-1/2 hover:bg-blue-300" type="button" onclick="toggleModal('branches')"> Add Branch </button>
-        </div>    -->   
-        
         <nav class="fixed flex w-full flex-wrap p-2 bg-gray-800">
             <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
               <div class="relative flex items-center justify-center h-16">
@@ -55,8 +43,11 @@
 @include('contents.adminModals.itemModals')
 <!--Branch Modal-->       
 @include('contents.adminModals.branchModals')
+<!--Supplier Modal-->       
+@include('contents.adminModals.supplierModals')
 
 <script type="text/javascript">
+  
   function toggleModal(modalID){
     document.getElementById(modalID).classList.toggle("hidden");
     document.getElementById("backdrop").classList.toggle("hidden");
@@ -76,9 +67,14 @@
       active_table=document.getElementById(tableID);
       active_table.classList.toggle("hidden");
 
-      
-
   }   
+  @if(isset($activeTable))
+    toggleTable('{{$activeTable}}');
+  @endif
+
+  @if(isset($activeModal))
+    toggleModal({{$activeModal}});
+  @endif
 </script>
 
 <script type="text/javascript">

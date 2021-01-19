@@ -90,7 +90,8 @@ class ViewController extends BaseController
                                         'suppliers'=>$suppliers,
                                         'brands'=>$brands,
                                         'items'=>$items,
-                                        'tags'=>$tags
+                                        'tags'=>$tags,
+                                        'activeTable'=> 't_employee'
                                       ]);
     }
     public function requestForm()

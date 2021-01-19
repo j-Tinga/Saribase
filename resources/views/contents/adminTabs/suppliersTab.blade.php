@@ -8,11 +8,7 @@
                         
                     </div>
                     <div class="px-6 py-4 whitespace-nowrap bg-white text-gray-900 text-lg font-semibold flex items-center"> 
-                        <form action="">
-                            @csrf
-                            <button type="submit" class="mr-6 bg-blue-500 text-white px-4 py-3 w-24 rounded-sm text-sm hover:bg-blue-300 ">Add</button>
-                        </form>
-                        
+                        <button onclick="toggleModal('newSupplier')" class="mr-6 bg-green-500 text-white px-4 py-3 w-30 rounded-sm text-sm hover:bg-green-300 ">New Supplier</button>
                     </div>
                 </div>
             <table class="min-w-full divide-y divide-gray-200">

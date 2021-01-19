@@ -25,7 +25,7 @@ class ItemController extends Controller
                     ->orderBy('employeeID', 'asc')
                     ->get();
 
-        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
+        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->paginate(15);
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
 
         $suppliers = DB::table('supplier')->get();
@@ -58,7 +58,7 @@ class ItemController extends Controller
                     ->get();
         
 
-        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
+        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->paginate(15);
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
         $editItem = DB::table('item')->where('itemID', $request->id)->first();
         

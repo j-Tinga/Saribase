@@ -85,7 +85,7 @@ class BranchController extends Controller
         }
     }
 
-    public function destroyBranch(Request $id){
+    public function destroyBranch($id){
         Branch::destroy($id);
         return $this->branchView();
     }

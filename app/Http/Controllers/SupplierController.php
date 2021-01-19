@@ -82,4 +82,30 @@ class SupplierController extends Controller
             return $this->destroySupplier($request->id);
         }
     }
+
+    public function destroySupplier($id){
+        Supplier::destroy($id);
+        return $this->supplierView();
+    }
+
+    public function newSupplier(Request $request)
+    {
+        $supplier = new Supplier;
+        $supplier->supplierName = $request->supplierName;
+        $supplier->supplierContact = $request->supplierContact;
+        $supplier->supplierAddress = $request->supplierAddress;
+        $supplier->save();
+
+        return $this->supplierView();
+    }
+
+    public function editSupplier (Request $request){
+        $supplier = Supplier::find($request->id);
+        $supplier->supplierName = $request->supplierName;
+        $supplier->supplierContact = $request->supplierContact;
+        $supplier->supplierAddress = $request->supplierAddress;
+        $supplier->save();
+
+        return $this->supplierView();
+    }
 }

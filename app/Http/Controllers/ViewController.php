@@ -79,7 +79,7 @@ class ViewController extends BaseController
                     ->orderBy('employeeID', 'asc')
                     ->get();
 
-        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
+        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->paginate(15);
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
 
         $suppliers = DB::table('supplier')->get();
@@ -91,7 +91,7 @@ class ViewController extends BaseController
                                         'brands'=>$brands,
                                         'items'=>$items,
                                         'tags'=>$tags,
-                                        'activeTable'=> 't_employee'
+                                        'activeTable'=> 't_items'
                                       ]);
     }
     public function requestForm()

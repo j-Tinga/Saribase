@@ -34,6 +34,8 @@ Route::get('/products/form', [ViewController:: class, 'requestform'])->name('req
 Route::get('/requests', [ViewController:: class, 'requests'])->name('requests');
 Route::get('/branches', [ViewController:: class, 'branches'])->name('branches');
 Route::get('/admin', [ViewController:: class, 'admin'])->name('admin');
+Route::get('/itemActions', [ItemController:: class, 'itemView'])->name('itemView');
+Route::get('/weeklyReports', [ViewController:: class, 'admin'])->name('weeklyReports');
 
 
 

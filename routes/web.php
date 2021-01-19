@@ -64,6 +64,8 @@ Route::delete('cancelItem', [ProductsPage:: class, 'destroy']);
 Route::post('addEmployee',[LoginController:: class, 'store']);
 
 //Admin Actions
+Route::get('/searchItem', [ItemController::class,'itemActions'])->name('item_page.action');
+
 Route::POST('itemActions', [ItemController::class,'itemActions']);  
 Route::POST('newItem', [ItemController::class,'newItem']);
 Route::POST('newBrand', [ItemController::class,'newBrand']);

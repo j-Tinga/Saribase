@@ -163,6 +163,7 @@
     document.getElementById("backdrop").classList.toggle("hidden");
     document.getElementById(modalID).classList.toggle("flex");
     document.getElementById("backdrop").classList.toggle("flex");
+    
   }
 </script>
 

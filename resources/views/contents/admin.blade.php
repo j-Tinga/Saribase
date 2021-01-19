@@ -81,4 +81,8 @@
   }   
 </script>
 
+<script type="text/javascript">
+$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+</script>
+
 @endsection

@@ -56,7 +56,47 @@ class ItemController extends Controller
             ->with('brands', $brands);
             
         }else if ($request->button == "Delete"){
-            return $this->destroy($request->id);
+            return $this->destroyItem($request->id);
+        }
+    }
+
+    public function searchItem(Request $request){
+        if($request->ajax()){
+            $output = '';
+            $items = DB::table('item')->where('itemName', 'LIKE', '%'.$request->search. '%')->get();
+
+            if($items){
+                foreach($items as $key => $item){
+                    $output .='<td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">'.$item->itemID.'</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">'.$item->itemName.'</div>
+            
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">'.$item->price.'</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">'.$item->sellingPrice.'</div>
+
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">'.$item->supplierName.'</div>
+        
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">'.$item->unitCount.'</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">'.$item->dateAdded.'</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"> ';
+                }
+                
+                return Response($output);
+            }
         }
     }
 

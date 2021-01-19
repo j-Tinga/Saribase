@@ -17,20 +17,17 @@
          
           <form action="newItem" method = "post">
               @csrf
-              
-              <div class = "p-0 mb-4 flex ">
-                  <div class="w-full">
-  
-                      <label for="fname" class ="sr-only">Item Name:</label>
+                <div class="mb-4">
+                    <label for="fname" class ="sr-only">Item Name:</label>
                       <input type="text" name="name" id="inputName" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm" placeholder="Item Name">
                       @error('fname')
                           <div class ="m-2 text-red-500 mt-2 text-sm">
                               {{$message}}
                           </div>
-                      @enderror
-                  </div>
-  
-                  <div class="w-full ml-6">
+                      @enderror 
+                </div>
+                <div class = "p-0 mb-4 flex ">
+                  <div class="w-full">
                       <label for="lname" class ="sr-only">Price:</label>
                       <input type="text" name="price" id="price" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm" placeholder="Price">
                       @error('lname')
@@ -39,19 +36,17 @@
                           </div>
                       @enderror
                   </div>
-                  
-              </div>
-
-                    <div class="mb-4">
-                      <label for="selpric" class ="sr-only">Selling Price:</label>
-                      <input type="text" name="sellPrice" id="selpric" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm" placeholder="Selling Price">
-                      @error('lname')
-                          <div class ="m-2 text-red-500 mt-2 text-sm">
-                              {{$message}}
-                          </div>
-                      @enderror
-                  </div>
-  
+                  <div class="w-full  ml-6">
+                        <label for="selpric" class ="sr-only">Selling Price:</label>
+                        <input type="text" name="sellPrice" id="selpric" class="bg-gray-200 border-2 w-full h-1  p-4 rounded-sm" placeholder="Selling Price">
+                        @error('lname')
+                            <div class ="m-2 text-red-500 mt-2 text-sm">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+            
               <div class = "mb-4"> 
                   <label for="number" class ="sr-only">Unit Count:</label>
                   <input type="text"name="unitCount" id="number" placeholder="Unit Count" class="bg-gray-200 border-2 w-full h-1 p-4 rounded-sm ">
@@ -63,7 +58,7 @@
               </div>
               <div class="flex mb-4">
                   <label for="brandID" class="m-2">Brand:</label>
-                  <select id="Brands" name="brandID" class="w-12 bg-gray-200 border-2 rounded-sm text-center">             
+                  <select id="Brands" name="brandID" class="w-full bg-gray-200 border-2 rounded-sm text-center">             
                      @foreach($brands as $brand)
                       <option value='{{$brand->brandID}}'>{{$brand->brandName}}</option>
                       @endforeach
@@ -76,7 +71,7 @@
               </div>
               <div class="flex mb-4">
                   <label for="itemSupplier" class="m-2">Supplier:</label>
-                  <select id="suppliers" name="itemSupplier" class="w-12 bg-gray-200 border-2 rounded-sm text-center">     
+                  <select id="suppliers" name="itemSupplier" class="w-full bg-gray-200 border-2 rounded-sm text-center">     
                   @foreach($suppliers as $supplier)
                         <option value='{{$supplier->supplierID}}'>{{$supplier->supplierName}}</option>
                   @endforeach

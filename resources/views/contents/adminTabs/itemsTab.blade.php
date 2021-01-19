@@ -84,9 +84,10 @@
                                 <button onclick="toggleModal('editItem')" class=" bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300 ">Edit</button>
                                 </div>
                                 <div class="text-sm text-gray-900 ml-12">
-                                    <form action="delete" method = "POST">
+                                    <form action="itemActions" method = "POST">
                                         @csrf
-                                        <button class="bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300 ">Delete</button>
+                                        <input type='hidden' name='id' value='{{$item->itemID}}'>
+                                        <button class="bg-blue-500 text-white px-4 py-3 w-15 rounded-sm text-sm hover:bg-blue-300" name='button' value='Delete'>Delete</button>
                                     </form>
                                 </div>
                             </td>

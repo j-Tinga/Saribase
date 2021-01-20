@@ -49,7 +49,7 @@
                 <a href="{{route('products')}}" class="@yield('products') px-2 py-4 hover:bg-gray-500 flex  text-lg">Branch Inventory</a>
                 <a href="{{route('requests')}}" class="@yield('requests') px-2 py-4 mb-12 hover:bg-gray-500 flex text-lg">Requests</a>
                 @if (Session::get('empLevelID')==1)
-                    <a href="{{route('weeklyReports')}}" class="@yield('weeklyReports') px-2 py-4 bg-gray-900 hover:bg-gray-500 flex justify-left text-lg">Weekly Reports</a>
+                    
                     <a href="{{route('admin')}}" class="px-2 py-4 bg-gray-900 hover:bg-gray-500 flex justify-left text-lg">Admin</a>
                     
                 @endif

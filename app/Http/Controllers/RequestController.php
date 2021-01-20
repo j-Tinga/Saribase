@@ -36,6 +36,7 @@ class RequestController extends Controller
         $requestList = DB::table('request_list')
         ->join('item', 'request_list.itemID','item.itemID')
         ->where('request_list.requestID', $id)->get();
+
       
         return view('contents.requestlist')->with('reqList', $requestList);  
         }  
@@ -43,9 +44,13 @@ class RequestController extends Controller
     }
     public function destroy(Request $request)
     {
-        //
-        $req_id = $request->session()->forget('requestID');
-        return redirect('products');
+        $id = $request->input('reqID');
+
+        $del = DB::table('request')->where('requestID', $id)->delete();
+
+        if($del){
+            return redirect('requests');
+        }
     }
 
     public function bulkOrder(Request $request){

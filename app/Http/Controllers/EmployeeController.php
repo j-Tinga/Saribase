@@ -85,7 +85,7 @@ class EmployeeController extends Controller
     }
 
     public function destroyEmployee(Request $request){
-        Employee::destroy($request->id);
+        Employee::destroy($request->id );
         return $this->employeeView();
     }
 

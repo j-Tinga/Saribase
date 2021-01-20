@@ -53,7 +53,7 @@ Route::post('newRequest', [RequestController:: class, 'store'])->name('newReques
 Route::get('/sendRequest', [RequestController:: class, 'destroy'])->name('sendRequest');
 
 Route::get('/showReqList', [RequestController:: class, 'show'])->name('showReqList');
-
+Route::delete('cancelRequest', [RequestController:: class, 'destroy'])->name('deleteRequest');
 //Request List
 Route::get('/addToList', [RequestListController:: class, 'store']);
 

@@ -83,7 +83,7 @@
                                                     <input type="hidden" name ="requestID" value = {{$b->requestID}}>
                                                     <button id = "showbtn" class="text-indigo-600 hover:text-indigo-900"> Show Request List </button>
                                                 </form>
-                                                <form action="cancelItem" method= "POST">
+                                                <form action="cancelRequest" method= "POST">
                                                     @csrf
                                                     @method('delete')
                                                     <input type="hidden" name="reqID" value = {{$b->requestID}}>

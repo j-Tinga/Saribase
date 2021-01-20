@@ -13,6 +13,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,10 @@ Route::get('searchItem', [ItemController::class,'itemActions'])->name('item_page
 Route::POST('itemActions', [ItemController::class,'itemActions']);  
 Route::POST('newItem', [ItemController::class,'newItem']);
 Route::POST('editItem', [ItemController::class,'editItemActions']);
+
+Route::POST('employeeActions', [EmployeeController::class,'employeeActions']);  
+Route::POST('editEmployee', [EmployeeController::class,'editEmployee']);
+Route::POST('deleteEmployee', [EmployeeController::class,'destroyEmployee']);
 
 Route::POST('newTag', [TagController::class,'newTag']);
 Route::POST('tagActions', [TagController::class,'tagActions']); 

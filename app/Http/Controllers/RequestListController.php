@@ -49,7 +49,6 @@ class RequestListController extends Controller
                 'requestID'      => $request->session()->get('requestID'),
                 'itemID'   => $request->input('itemID'),
                 'quantityRequested' => $request->input('quantity')
-                
             ]
         ]);
             if($insert){
@@ -59,14 +58,14 @@ class RequestListController extends Controller
             else{
                 return redirect('loginform');
             }
-    
     }
 
     public function show(Request $request)
     {
         //
         $id = $request->session()->get('requestID');
-        $getList = DB::table('request_list')->join('item', 'request_list.itemID', '=', 'item.itemID')->select('request_list.*', 'item.itemName')->get();
+        $getList = DB::table('request_list')
+        ->join('item', 'request_list.itemID', '=', 'item.itemID')->select('request_list.*', 'item.itemName')->get();
 
 
         if($getList){

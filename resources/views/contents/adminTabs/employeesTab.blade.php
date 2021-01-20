@@ -59,14 +59,16 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap flex">
                                             <div class="text-sm text-gray-900 ">
-                                                <form action="searchItem" method = "POST">
+                                                <form action="employeeActions" method = "POST">
                                                     @csrf
-                                                    <button type="submit" onclick="toggleModal('employee')" class="text-indigo-600 hover:text-indigo-900">Edit</button>
+                                                    <input type='hidden' name='id' value='{{$employee->employeeID}}'>
+                                                    <button type="submit" value="Edit" name="button" class="text-indigo-600 hover:text-indigo-900">Edit</button>
                                                 </form>
                                             </div>
                                             <div class="text-sm text-gray-900 ml-12">
-                                                <form action="" method = "POST">
+                                                <form action="deleteEmployee" method = "POST">
                                                     @csrf
+                                                    <input type='hidden' name='id' value='{{$employee->employeeID}}'>
                                                     <button type="submit" class="text-red-500 hover:text-red-900">Delete</button>
                                                 </form>
                                             </div>

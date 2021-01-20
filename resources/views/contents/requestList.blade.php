@@ -54,7 +54,9 @@
                   
                     </tbody>
                  </table>
-                
+                 <form action="requestActions" method = "post">
+                 @csrf
+                 </form>
             </div>
             </div>  
         </div>

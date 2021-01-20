@@ -41,12 +41,9 @@
                                     Item Name
                              </th>
                              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tags
+                                    Supplier
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tags
-                            </th>
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Tags
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -64,30 +61,62 @@
                         <tr>
                         <td class="px-6 py-4 whitespace-nowrap">{{$item->itemID}}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{$item->itemName}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{$item->tagListID}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{$item->tagID}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{$item->tagName}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{$item->supplierName}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                        @foreach($tags as $tag)
+                            @if($tag->itemID == $item->itemID)
+                                <span class='badge badge-secondary'>{{$tag->tagName}}</span>
+                            @endif
+                        @endforeach
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap">{{$item->itemQuantity}}</td>
+                        @if (Session::get('requestID') != null)   
                         <td class="px-6 py-4 whitespace-nowrap"> 
                             <form action="/addItem" method = "GET">
-                                <input type="checkbox" name = "itemID" value= {{$item->itemID}}>
+                                <input type="hidden" name = "itemID" value= {{$item->itemID}}>
                                 Quantity <input type = "number" name = "quantity" class="number" min= 0 max= 50>
                                 <button class="p-0"> Add </button>
                             </form></td>
                         </tr>
+                        @else
+                        <td class="px-6 py-4 whitespace-nowrap"></td>
+                        @endif
+                        
                     @endforeach
-                  
+                    @foreach($unstockedItems as $unstocked)
+                        <tr id='unstocked'>
+                        <td class="px-6 py-4 whitespace-nowrap">{{$unstocked->itemID}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{$unstocked->itemName}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{$unstocked->supplierName}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                        @foreach($tags as $tag)
+                            @if($tag->itemID == $unstocked->itemID)
+                                <span class='badge badge-secondary'>{{$tag->tagName}}</span>
+                            @endif
+                        @endforeach
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">UNSTOCKED</td>
+                        @if (Session::get('requestID') != null)  
+                        <td class="px-6 py-4 whitespace-nowrap"> 
+                            <form action="/addItem" method = "GET">
+                                <input type="hidden" name = "itemID" value= {{$unstocked->itemID}}>
+                                Quantity <input type = "number" name = "quantity" class="number" min= 0 max= 50>
+                                <button class="p-0"> Add To Branch</button>
+                            </form></td>
+                        @else
+                        <td class="px-6 py-4 whitespace-nowrap"></td>
+                        @endif
+                        </tr>
+                    @endforeach
+
                     </tbody>
                  </table>
                 
             </div>
             </div>  
         </div>
-
     </div>
-
 </div>
-
             <!--Request List Modal-->
 
             <div class=" hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center" id="requestList">

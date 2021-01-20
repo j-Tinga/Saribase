@@ -46,15 +46,27 @@ class ViewController extends BaseController
             ->join('branch_inventory', 'item.itemID','branch_inventory.itemID')
             ->join('tag_list', 'item.itemID','tag_list.itemID')
             ->join('tag', 'tag_list.tagID', 'tag.tagID')
+            ->join('supplier', 'item.supplierID', 'supplier.supplierID')
             ->where('branchID',Session::get('branchID'))
-            ->orderBy('itemQuantity', 'asc')->get();
+            ->orderBy('itemQuantity', 'desc')->get();
+            
+        $table = DB::table('branch_inventory')
+        ->where('branchID',Session::get('branchID'))
+        ->pluck('itemID');
 
+        $unstockedItems= DB::table('item')
+        ->join('tag_list', 'item.itemID','tag_list.itemID')
+        ->join('tag', 'tag_list.tagID', 'tag.tagID')
+        ->join('supplier', 'item.supplierID', 'supplier.supplierID')
+        ->whereNotIn('item.itemID', $table)
+        ->get();
+        
         $getList = DB::table('request_list')
             ->join('item', 'request_list.itemID', '=', 'item.itemID')
             ->select('request_list.*', 'item.itemName')
             ->where('request_list.requestID', Session::get('requestID'))->get();
-
-        return view('contents.products')->with('items', $items)->with('reqList', $getList);
+        $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
+        return view('contents.products')->with('items', $items)->with('reqList', $getList)->with('tags', $tags)->with('unstockedItems', $unstockedItems);
     }
     
     public function branches()

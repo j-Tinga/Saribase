@@ -37,7 +37,8 @@ Route::get('/admin', [ViewController:: class, 'admin'])->name('admin');
 Route::get('/itemActions', [ItemController:: class, 'itemView'])->name('itemView');
 Route::get('/weeklyReports', [ViewController:: class, 'admin'])->name('weeklyReports');
 
-
+//Dashboard Bulk
+Route::POST('bulkOrder', [RequestController::class,'bulkOrder']);
 
 //Login
 Route::get('/login',  [ViewController:: class, 'loginform'])->name('login');

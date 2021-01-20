@@ -26,7 +26,7 @@ class BranchController extends Controller
                     ->orderBy('employeeID', 'asc')
                     ->get();
 
-        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
+        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->paginate(15);
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
 
         $suppliers = DB::table('supplier')->get();
@@ -59,14 +59,13 @@ class BranchController extends Controller
                     ->get();
         
 
-        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->get();
+        $items = DB::table('item')->join('supplier', 'item.supplierID', '=', 'supplier.supplierID')->paginate(15);
         $tags = DB::table('tag')->join('tag_List', 'tag.tagID', '=', 'tag_List.tagID')->get();
         $editBranch = DB::table('branch')->where('branchID', $request->id)->first();
         
 
         $suppliers = DB::table('supplier')->get();
         $brands = DB::table('brand')->get();
-        
         return view('contents.admin', [
                                         'branches'=>$branch, 
                                         'employees'=>$employees,
@@ -77,7 +76,6 @@ class BranchController extends Controller
                                         'editBranch' => $editBranch,
                                         'activeModal' => "editBranch",
                                         'activeTable' => "t_branches",
-                                        
                                       ]);
             
         }else if ($request->button == "Delete"){

@@ -17,8 +17,15 @@ class ViewController extends BaseController
     public function dashboard()
     {
         $branches = DB::table('branch')->get();
+        $branches1 = DB::table('branch')->join('employee', 'branch.branchManagerID', 'employee.employeeID')->get();
+        $items = DB::table('branch_inventory')
+            ->join('item', 'item.itemID','branch_inventory.itemID')
+            ->where('branch_inventory.itemQuantity', '<', '25')->get();
+
         return view('contents.dashboard',[
+            'branches1'=>$branches1,
             'branches'=>$branches,
+            'items'=>$items
         ]);
     }
     public function loginform()
@@ -30,6 +37,7 @@ class ViewController extends BaseController
         $requests = DB::table('request')
         ->join('employee', 'request.requesterID', 'employee.employeeID')
         ->join('branch', 'employee.branchID', 'branch.branchID')->get();
+        
 
         $id = $request->session()->get('reqID');
 

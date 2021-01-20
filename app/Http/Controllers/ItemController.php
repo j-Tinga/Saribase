@@ -88,7 +88,7 @@ class ItemController extends Controller
         if($request->ajax()){
             $output = '';
             $items = DB::table('item')->where('itemName', 'LIKE', '%'.$request->search. '%')->get();
-
+            
             if($items){
                 foreach($items as $key => $item){
                     $output .='<td class="px-6 py-4 whitespace-nowrap">

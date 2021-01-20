@@ -9,16 +9,6 @@
 
 <div class="bg-gray-800 justify-center">
                     
-                    
-    <!--    <div class="flex justify-center">
-            <button class="bg-blue-500 text-white px-4 py-3 rounded-sm font-medium w-1/2 hover:bg-blue-300" type="button" onclick="toggleModal('employee')"> Add Employee </button>
-        </div>
-        <div class="flex justify-center">
-            <button class="bg-blue-500 text-white px-4 py-3 rounded-sm font-medium w-1/2 hover:bg-blue-300" type="button" onclick="toggleModal('item')"> Add Item </button>
-        </div>     
-        <div class="flex justify-center">
-            <button class="bg-blue-500 text-white px-4 py-3 rounded-sm font-medium w-1/2 hover:bg-blue-300" type="button" onclick="toggleModal('branches')"> Add Branch </button>
-        </div>    -->   
         
         <nav class="fixed flex w-full flex-wrap p-2 bg-gray-800">
             <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -591,7 +581,7 @@
             </div>
             <div class="mt-6 flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
         
-                <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('employee')">
+                <button type="submit" class="bg-blue-500 text-white hover:bg-blue-300 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('employee')">
                   Confirm
                 </button>
                 
@@ -694,7 +684,7 @@
               </div>
               <div class="mt-6 flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
           
-                  <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('item')">
+                  <button type="submit" class="bg-blue-500 text-white hover:bg-blue-300 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('item')">
                     Confirm
                   </button>
                   
@@ -795,7 +785,7 @@
 
               <div class="mt-6 flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
           
-                  <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('branches')">
+                  <button type="submit" class="bg-blue-500 text-white hover:bg-blue-300 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="toggleModal('branches')">
                     Confirm
                   </button>
                   

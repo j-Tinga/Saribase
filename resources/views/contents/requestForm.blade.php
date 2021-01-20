@@ -35,23 +35,5 @@
 </div>
 
 
-
-
-<!--<div align= "center" id= "loginform" class = "jumbotron" >
-        <h2>Create a request</h2>
-        <form action="newRequest" method = "POST">
-            @csrf
-           <center>Payment Type:
-            <select name="paymentType" id="ptype">
-            <option value="Cash">Cash</option>
-            <option value="Credit">Credit</option>
-            </select></center><br>
-            <center><button name="createRequest" class= "btn btn-primary">Create Request </button></center>
-
-        </form>
-        
-        <button onclick="window.location='{{ url('/logout') }}'" class= "btn btn-primary"> Logout</button>
-    </div> -->
-
 @endsection
    

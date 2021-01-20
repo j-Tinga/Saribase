@@ -95,19 +95,7 @@
 
 
 
-                                            <!--    <form action="cancelItem" method= "POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <input type="hidden" name="reqID" value = {{$b->requestID}}>
-                                                    <button class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 ">Cancel</button>
-                                                </form>
-                                                <form action="/showReqList " method= "GET" >
-                                                    @csrf
-                                                    <input type="hidden" name ="requestID" value = {{$b->requestID}}>
-                                                    <button id = "showbtn" class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 "> Show Request List </button>
-                                                </form> -->
-
-                                                <!-- <button onclick="toggleModal('item'); sendData()" name = "showbtn" class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 " value = {{$b->requestID}}> <span name = "requestID">{{$b->requestID}}</span> Show Request List </button> -->
+                                           
                                            </td>
                                         
                                         </tr>                   

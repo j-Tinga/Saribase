@@ -1,29 +1,29 @@
 @extends('layout.layout')
 
-@section('products')
+@section('requests')
     bg-gray-500
 @endsection
 
 @section('content')
 
 
-<div class="flex justify-center">
-    <div class="w-9/12 flex flex-col">
+<div class="p-4 flex justify-center">
+    <div class="w-1/2 flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                
-                  <div class="mb-6 flex justify-between">
+
+                  <div class="mb-4 flex justify-between">
                     <div class="flex items-center  mr-4">
                         <h1 class="text-2xl font-semibold uppercase">Request List</h1>
                     </div>
-                
+                    <div class="p-2">
+                        <button onclick="window.location='{{ route('requests') }}'"  class="text-indigo-600 hover:text-indigo-900 underline">Return to Requests</button>
+                    </div>
                   </div>
                 
 
                 <div class="shadow bg-gray-50 overflow-hidden border-b border-gray-200 sm:rounded-md">
-                    <div class="p-2">
-                        <button onclick="window.location='{{ route('requests') }}'"  class="mr-6 bg-blue-500 text-white px-4 py-3 w-40 rounded-sm text-sm hover:bg-blue-300 ">Return to Requests</button>
-                    </div>
+                    
                     
                   
                   <table class="min-w-full divide-y divide-gray-200">

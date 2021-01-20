@@ -32,6 +32,7 @@ Route::get('/dashboard', [ViewController:: class, 'dashboard'])->name('dashboard
 Route::get('/products', [ViewController:: class, 'products'])->name('products');
 Route::get('/products/form', [ViewController:: class, 'requestform'])->name('requestsform');
 Route::get('/requests', [ViewController:: class, 'requests'])->name('requests');
+Route::get('/requestlist', [ViewController:: class, 'requestlist'])->name('requestlist');
 Route::get('/branches', [ViewController:: class, 'branches'])->name('branches');
 Route::get('/admin', [ViewController:: class, 'admin'])->name('admin');
 Route::get('/itemActions', [ItemController:: class, 'itemView'])->name('itemView');
@@ -58,7 +59,7 @@ Route::get('/addToList', [RequestListController:: class, 'store']);
 
 //Live search in RequestListController
 Route::get('/live_search', [RequestListController:: class, 'action'])->name('request_list.action');
-Route::get('/searchProduct', [ProductsPage:: class, 'action'])->name('products_page.action');
+
 Route::get('/addItem', [ProductsPage:: class, 'store']);
 
 //Live search in Products Page

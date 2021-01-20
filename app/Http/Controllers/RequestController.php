@@ -30,17 +30,24 @@ class RequestController extends Controller
     public function show(Request $request)
     {
         $id = $request->input('requestID');
-        Session::put('reqID', $id);
-        return redirect('requests');    
+
+        if($id){
+        
+        $requestList = DB::table('request_list')
+        ->join('item', 'request_list.itemID','item.itemID')
+        ->where('request_list.requestID', $id)->get();
+      
+        return view('contents.requestlist')->with('reqList', $requestList);  
+        }  
 
     }
-
     public function destroy(Request $request)
     {
         //
         $req_id = $request->session()->forget('requestID');
         return redirect('products');
     }
+
     public function bulkOrder(Request $request){
         DB::table('request')->insert([
             [

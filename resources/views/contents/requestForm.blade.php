@@ -11,6 +11,8 @@
      
     <div class="w-1/4  p-8 mt-48 bg-white bg-opacity-70 rounded-md">
        
+        
+           
         <div class = "mb-12">
             <h2 class="text-center text-2xl ">Create Request</h2>
         </div>
@@ -31,7 +33,4 @@
         </form>
     </div>
 </div>
-
-
 @endsection
-   

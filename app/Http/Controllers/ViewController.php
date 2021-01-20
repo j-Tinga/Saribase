@@ -32,35 +32,27 @@ class ViewController extends BaseController
     {
         return view('contents.login');
     }
-    public function requests(Request $request)
+    public function requests()
     {
         $requests = DB::table('request')
         ->join('employee', 'request.requesterID', 'employee.employeeID')
         ->join('branch', 'employee.branchID', 'branch.branchID')->get();
-        
-
-        $id = $request->session()->get('reqID');
-
-        $getList = DB::table('request_list')
-        ->join('item', 'request_list.itemID','item.itemID')
-        ->where('request_list.requestID', $id)->get();
       
-        return view('contents.requests')->with('requests', $requests)->with('reqList', $getList);  
-        // $request->session()->forget('reqID');
+        return view('contents.requests')->with('requests', $requests);
     }
     public function products()
     {
         $items = DB::table('item')
-                ->join('branch_inventory', 'item.itemID','branch_inventory.itemID')
-                ->join('tag_list', 'item.itemID','tag_list.itemID')
-                ->join('tag', 'tag_list.tagID', 'tag.tagID')
-                ->where('branchID',Session::get('branchID'))
-                ->orderBy('itemQuantity', 'asc')->get();
+            ->join('branch_inventory', 'item.itemID','branch_inventory.itemID')
+            ->join('tag_list', 'item.itemID','tag_list.itemID')
+            ->join('tag', 'tag_list.tagID', 'tag.tagID')
+            ->where('branchID',Session::get('branchID'))
+            ->orderBy('itemQuantity', 'asc')->get();
 
         $getList = DB::table('request_list')
-                ->join('item', 'request_list.itemID', '=', 'item.itemID')
-                ->select('request_list.*', 'item.itemName')
-                ->where('request_list.requestID', Session::get('requestID'))->get();
+            ->join('item', 'request_list.itemID', '=', 'item.itemID')
+            ->select('request_list.*', 'item.itemName')
+            ->where('request_list.requestID', Session::get('requestID'))->get();
 
         return view('contents.products')->with('items', $items)->with('reqList', $getList);
     }

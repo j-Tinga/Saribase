@@ -13,6 +13,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        
+        $this->call(BranchTableSeeder::class);
+        $this->call(EmployeeLevelTableSeeder::class);
+        $this->call(EmployeeTableSeeder::class);
+
+        
+        
+        $this->call(BrandTableSeeder::class);
+        $this->call(TagTableSeeder::class);
+        $this->call(TagListTableSeeder::class);
+        $this->call(SupplierTableSeeder::class);
+        $this->call(ItemTableSeeder::class);
+
+        $this->call(BranchInventoryTableSeeder::class);
+       
+        $this->call(RequestTableSeeder::class);
+        $this->call(RequestListTableSeeder::class);
+        
+        
     }
 }

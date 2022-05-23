@@ -94,7 +94,7 @@ class EmployeeController extends Controller
         $employee->firstName = $request->fname;
         $employee->lastName = $request->lname;
         $employee->contactNumber = $request->number;
-        $employee->password = $request->password;
+        $employee->password = Hash::make($request->password);
         $employee->branchID = $request->branch;
         $employee->save();
 

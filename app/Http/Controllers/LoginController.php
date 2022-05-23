@@ -23,24 +23,18 @@ class LoginController extends Controller
         $empID = $request->input('empID');
         $pass = $request->input('password');
 
-        $validate = DB::table('employee')->select('employeeID', 'password')->where('employeeID', $empID)->where('password',$pass)->first();
+        $validate = DB::table('employee')->select('employeeID', 'password')->where('employeeID', $empID)->first();
 
-            if($validate){
+            if($validate && (Hash::check($pass, $validate->password))){
                 $queryLevel = DB::table('employee')->select('employeeLevelID', 'branchID')->where('employeeID', $empID)->first();
 
-                $queryLName =  DB::table('employee_level')->select('levelName')->where('employeeLevelID',  $queryLevel->employeeLevelID)->first();
-
-               
-
-                    
+                $queryLName =  DB::table('employee_level')->select('levelName')->where('employeeLevelID',  $queryLevel->employeeLevelID)->first();              
                     Session::put('empID', $empID);
                     Session::put('empLevelID', $queryLevel->employeeLevelID);
                     Session::put('branchID', $queryLevel->branchID);
                     Session::put('levelName',  $queryLName->levelName);
                     return redirect()->route('dashboard');
-               
-                   
-                       
+                                  
            }else{
             return back()->with('status','Account Does Not Exist');
            }

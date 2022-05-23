@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <title>SariBase</title>
+        <title>PaintToGo</title>
 
         <!-- Fonts -->
         
@@ -42,7 +42,7 @@
         @if (Session::get('empID')!=null)
             <div class=" h-screen sticky top-0 bg-gray-800 text-gray-100 flex-col" id="left-side-panel">
     
-                    <h1 class=" text-xl p-2 mb-12 mr-8 mt-6">SARIBASE</h1>
+                    <h1 class=" text-xl p-2 mb-12 mr-8 mt-6">PAINTTOGO</h1>
                 
                 
                 <a href="{{route('dashboard')}}" class="@yield('dashboard') px-2 py-4 hover:bg-gray-500 flex  text-lg">Dashboard</a>
